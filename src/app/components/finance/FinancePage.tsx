@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Plus, FileText, PieChart, CreditCard } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
-import { MOCK_STATS, MOCK_INVOICES } from './types';
+import { MOCK_STATS, MOCK_INVOICES, MOCK_PAYMENTS } from './types';
 import { FinancialSummary } from './FinancialSummary';
 import { InvoicesTable } from './InvoicesTable';
 import { InvoiceGenerator } from './InvoiceGenerator';
+import { PaymentsList } from './PaymentsList';
+import { FinanceReports } from './FinanceReports';
 
 type FinanceTab = 'invoices' | 'payments' | 'reports';
 
@@ -44,8 +46,8 @@ export function FinancePage() {
                 <button
                     onClick={() => setActiveTab('invoices')}
                     className={`flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'invoices'
-                            ? 'border-blue-800 text-blue-800'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        ? 'border-blue-800 text-blue-800'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                         }`}
                 >
                     <FileText size={18} />
@@ -54,8 +56,8 @@ export function FinancePage() {
                 <button
                     onClick={() => setActiveTab('payments')}
                     className={`flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'payments'
-                            ? 'border-blue-800 text-blue-800'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        ? 'border-blue-800 text-blue-800'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                         }`}
                 >
                     <CreditCard size={18} />
@@ -64,8 +66,8 @@ export function FinancePage() {
                 <button
                     onClick={() => setActiveTab('reports')}
                     className={`flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'reports'
-                            ? 'border-blue-800 text-blue-800'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        ? 'border-blue-800 text-blue-800'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                         }`}
                 >
                     <PieChart size={18} />
@@ -86,19 +88,11 @@ export function FinancePage() {
                 )}
 
                 {activeTab === 'payments' && (
-                    <div className="flex flex-col items-center justify-center py-12 text-center animate-in fade-in duration-300 bg-white rounded-xl border border-gray-200">
-                        <CreditCard size={48} className="text-gray-300 mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900">Historial de Pagos</h3>
-                        <p className="text-gray-500 max-w-sm mt-1">Este módulo permitirá gestionar los pagos recibidos y conciliaciones bancarias.</p>
-                    </div>
+                    <PaymentsList payments={MOCK_PAYMENTS} />
                 )}
 
                 {activeTab === 'reports' && (
-                    <div className="flex flex-col items-center justify-center py-12 text-center animate-in fade-in duration-300 bg-white rounded-xl border border-gray-200">
-                        <PieChart size={48} className="text-gray-300 mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900">Reportes Financieros</h3>
-                        <p className="text-gray-500 max-w-sm mt-1">Próximamente: Gráficos avanzados de flujo de caja y balances mensuales.</p>
-                    </div>
+                    <FinanceReports />
                 )}
             </div>
         </div>

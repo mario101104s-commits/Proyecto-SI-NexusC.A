@@ -17,6 +17,17 @@ export interface FinancialStats {
     pendingInvoicesAmount: number;
 }
 
+export interface Payment {
+    id: string;
+    reference: string;
+    entity: string; // Client or Supplier
+    amount: number;
+    date: string;
+    type: 'income' | 'expense';
+    method: 'transfer' | 'cash' | 'check' | 'card';
+    status: 'completed' | 'pending';
+}
+
 export const MOCK_INVOICES: Invoice[] = [
     {
         id: '1',
@@ -62,3 +73,46 @@ export const MOCK_STATS: FinancialStats = {
     pendingInvoicesCount: 3,
     pendingInvoicesAmount: 2750.50
 };
+
+export const MOCK_PAYMENTS: Payment[] = [
+    {
+        id: '1',
+        reference: 'REF-88392',
+        entity: 'Industrias Venoco C.A.',
+        amount: 1540.00,
+        date: '2026-01-06',
+        type: 'income',
+        method: 'transfer',
+        status: 'completed'
+    },
+    {
+        id: '2',
+        reference: 'PAGO-004',
+        entity: 'Servicios de Limpieza S.A.',
+        amount: 350.00,
+        date: '2026-01-08',
+        type: 'expense',
+        method: 'cash',
+        status: 'completed'
+    },
+    {
+        id: '3',
+        reference: 'REF-99201',
+        entity: 'Construcciones El Sol',
+        amount: 1000.00,
+        date: '2026-01-11',
+        type: 'income',
+        method: 'check',
+        status: 'pending'
+    },
+    {
+        id: '4',
+        reference: 'PAGO-005',
+        entity: 'Papelería Central',
+        amount: 120.50,
+        date: '2026-01-12',
+        type: 'expense',
+        method: 'card',
+        status: 'completed'
+    }
+] as Payment[]; 

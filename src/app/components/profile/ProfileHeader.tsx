@@ -25,7 +25,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                         </button>
                     </div>
 
-                    <div className="ml-6 mb-1 flex-1">
+                    <div className="ml-6 mb-3 flex-1">
                         <h2 className="text-2xl font-bold text-gray-900">{profile.name}</h2>
                         <p className="text-gray-500 font-medium">{profile.role}</p>
                     </div>

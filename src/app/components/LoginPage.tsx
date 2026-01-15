@@ -8,7 +8,7 @@ import nexusLogo from '@/assets/nexus_logo.png';
 // Mock users - En producción estos vendrían de la base de datos
 const MOCK_USERS = [
   { username: 'admin', password: 'admin123' },
-  { username: 'usuario', password: 'usuario123' },
+  { username: 'mario.sanchez@nexus.com', password: 'mario1234' },
 ];
 
 interface LoginPageProps {
@@ -181,7 +181,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
             </p>
             <div className="text-xs text-blue-700 space-y-1">
               <p>• admin / admin123</p>
-              <p>• usuario / usuario123</p>
+              <p>• mario.sanchez@nexus.com / mario1234</p>
             </div>
           </div>
         </div>
