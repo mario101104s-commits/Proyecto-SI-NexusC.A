@@ -21,6 +21,8 @@ import { PurchasesPage } from '@/app/components/purchases/PurchasesPage';
 import { FinancePage } from '@/app/components/finance/FinancePage';
 import { HRPage } from '@/app/components/hr/HRPage';
 import { CommunicationPage } from '@/app/components/communication/CommunicationPage';
+import { ReportsPage } from '@/app/components/reports/ReportsPage';
+import { ProfilePage } from '@/app/components/profile/ProfilePage';
 import { DashboardWidgets } from '@/app/components/DashboardWidgets';
 import { SalesChart, AnnouncementsSection } from '@/app/components/DashboardCharts';
 import { SalesPage } from '@/app/components/sales/SalesPage';
@@ -75,7 +77,7 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'reports':
         return 'Reportes';
       case 'settings':
-        return 'Configuración';
+        return 'Mi Perfil y Configuración';
       default:
         return 'Dashboard Principal';
     }
@@ -117,21 +119,9 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'communication':
         return <CommunicationPage />;
       case 'reports':
-        return (
-          <div className="text-center py-12">
-            <BarChart3 size={64} className="mx-auto text-gray-300 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">Módulo de Reportes</h2>
-            <p className="text-gray-500">Esta sección está en desarrollo</p>
-          </div>
-        );
+        return <ReportsPage />;
       case 'settings':
-        return (
-          <div className="text-center py-12">
-            <Settings size={64} className="mx-auto text-gray-300 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">Configuración</h2>
-            <p className="text-gray-500">Esta sección está en desarrollo</p>
-          </div>
-        );
+        return <ProfilePage />;
       default:
         return null;
     }
