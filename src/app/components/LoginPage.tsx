@@ -3,7 +3,7 @@ import { User, Lock, AlertCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 import { Label } from '@/app/components/ui/label';
-import nexusLogo from 'figma:asset/3f9481cac93bc972edc8f7621e34bd24dfb85553.png';
+import nexusLogo from '@/assets/nexus_logo.png';
 
 // Mock users - En producción estos vendrían de la base de datos
 const MOCK_USERS = [
@@ -24,20 +24,20 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     // Validaciones
     if (!username.trim()) {
       setError('Por favor ingrese su usuario');
       return;
     }
-    
+
     if (!password.trim()) {
       setError('Por favor ingrese su contraseña');
       return;
     }
 
     setIsLoading(true);
-    
+
     // Simular llamada a API
     setTimeout(() => {
       const user = MOCK_USERS.find(
@@ -68,9 +68,9 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-10 border border-gray-100">
           {/* Logo */}
           <div className="flex justify-center mb-8">
-            <img 
-              src={nexusLogo} 
-              alt="NEXUS C.A." 
+            <img
+              src={nexusLogo}
+              alt="NEXUS C.A."
               className="h-24 w-auto object-contain"
             />
           </div>

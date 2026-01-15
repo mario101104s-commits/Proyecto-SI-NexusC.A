@@ -1,23 +1,28 @@
 import { useState } from 'react';
-import { 
-  Home, 
-  ShoppingCart, 
-  Package, 
-  Users, 
-  BarChart3, 
+import {
+  Home,
+  ShoppingCart,
+  Package,
+  Users,
+  BarChart3,
   Settings,
   Menu,
   X,
   Bell,
   LogOut,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Truck
 } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
+import { InventoryPage } from '@/app/components/inventory/InventoryPage';
+import { PurchasesPage } from '@/app/components/purchases/PurchasesPage';
+
+
 import { DashboardWidgets } from '@/app/components/DashboardWidgets';
 import { SalesChart, AnnouncementsSection } from '@/app/components/DashboardCharts';
 import { SalesPage } from '@/app/components/sales/SalesPage';
-import nexusLogo from 'figma:asset/3f9481cac93bc972edc8f7621e34bd24dfb85553.png';
+import nexusLogo from '@/assets/nexus_logo.png';
 
 interface DashboardProps {
   username: string;
@@ -40,8 +45,10 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     { id: 'home', label: 'Inicio', icon: <Home size={20} />, active: true },
     { id: 'sales', label: 'Ventas', icon: <ShoppingCart size={20} /> },
     { id: 'inventory', label: 'Inventario', icon: <Package size={20} /> },
+    { id: 'purchases', label: 'Compras', icon: <Truck size={20} /> },
     { id: 'clients', label: 'Clientes', icon: <Users size={20} /> },
     { id: 'reports', label: 'Reportes', icon: <BarChart3 size={20} /> },
+
     { id: 'settings', label: 'Configuración', icon: <Settings size={20} /> },
   ];
 
@@ -53,7 +60,10 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
         return 'Gestión de Ventas';
       case 'inventory':
         return 'Inventario';
+      case 'purchases':
+        return 'Compras y Proveedores';
       case 'clients':
+
         return 'Clientes';
       case 'reports':
         return 'Reportes';
@@ -72,7 +82,7 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">
               Bienvenido, {username}
             </h2>
-            
+
             {/* Widgets */}
             <DashboardWidgets />
 
@@ -90,14 +100,11 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'sales':
         return <SalesPage />;
       case 'inventory':
-        return (
-          <div className="text-center py-12">
-            <Package size={64} className="mx-auto text-gray-300 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">Módulo de Inventario</h2>
-            <p className="text-gray-500">Esta sección está en desarrollo</p>
-          </div>
-        );
+        return <InventoryPage />;
+      case 'purchases':
+        return <PurchasesPage />;
       case 'clients':
+
         return (
           <div className="text-center py-12">
             <Users size={64} className="mx-auto text-gray-300 mb-4" />
@@ -130,9 +137,8 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
       <aside
-        className={`${
-          sidebarCollapsed ? 'w-20' : 'w-64'
-        } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}
+        className={`${sidebarCollapsed ? 'w-20' : 'w-64'
+          } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}
       >
         {/* Logo Section */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
@@ -155,11 +161,10 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
             <button
               key={item.id}
               onClick={() => setActiveMenu(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${
-                activeMenu === item.id
-                  ? 'bg-blue-50 text-blue-800 border-r-4 border-blue-800'
-                  : 'text-gray-600 hover:bg-gray-50'
-              }`}
+              className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${activeMenu === item.id
+                ? 'bg-blue-50 text-blue-800 border-r-4 border-blue-800'
+                : 'text-gray-600 hover:bg-gray-50'
+                }`}
             >
               <span className="flex-shrink-0">{item.icon}</span>
               {!sidebarCollapsed && (
