@@ -12,13 +12,15 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Truck
+  Truck,
+  MessageSquare
 } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { InventoryPage } from '@/app/components/inventory/InventoryPage';
 import { PurchasesPage } from '@/app/components/purchases/PurchasesPage';
-
-
+import { FinancePage } from '@/app/components/finance/FinancePage';
+import { HRPage } from '@/app/components/hr/HRPage';
+import { CommunicationPage } from '@/app/components/communication/CommunicationPage';
 import { DashboardWidgets } from '@/app/components/DashboardWidgets';
 import { SalesChart, AnnouncementsSection } from '@/app/components/DashboardCharts';
 import { SalesPage } from '@/app/components/sales/SalesPage';
@@ -46,7 +48,9 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     { id: 'sales', label: 'Ventas', icon: <ShoppingCart size={20} /> },
     { id: 'inventory', label: 'Inventario', icon: <Package size={20} /> },
     { id: 'purchases', label: 'Compras', icon: <Truck size={20} /> },
-    { id: 'clients', label: 'Clientes', icon: <Users size={20} /> },
+    { id: 'finance', label: 'Finanzas', icon: <BarChart3 size={20} /> },
+    { id: 'hr', label: 'RRHH', icon: <Users size={20} /> },
+    { id: 'communication', label: 'Comunicación', icon: <MessageSquare size={20} /> },
     { id: 'reports', label: 'Reportes', icon: <BarChart3 size={20} /> },
 
     { id: 'settings', label: 'Configuración', icon: <Settings size={20} /> },
@@ -62,9 +66,12 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
         return 'Inventario';
       case 'purchases':
         return 'Compras y Proveedores';
-      case 'clients':
-
-        return 'Clientes';
+      case 'finance':
+        return 'Finanzas y Facturación';
+      case 'hr':
+        return 'Recursos Humanos';
+      case 'communication':
+        return 'Comunicación y Colaboración';
       case 'reports':
         return 'Reportes';
       case 'settings':
@@ -103,15 +110,12 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
         return <InventoryPage />;
       case 'purchases':
         return <PurchasesPage />;
-      case 'clients':
-
-        return (
-          <div className="text-center py-12">
-            <Users size={64} className="mx-auto text-gray-300 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">Módulo de Clientes</h2>
-            <p className="text-gray-500">Esta sección está en desarrollo</p>
-          </div>
-        );
+      case 'finance':
+        return <FinancePage />;
+      case 'hr':
+        return <HRPage />;
+      case 'communication':
+        return <CommunicationPage />;
       case 'reports':
         return (
           <div className="text-center py-12">
