@@ -1,6 +1,14 @@
-import { ClipboardList, Calendar, Bell, FileText, LogIn, LogOut, ShieldCheck, ChevronRight, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { ClipboardList, Bell, FileText, LogIn, LogOut, ShieldCheck, ChevronRight, Zap } from 'lucide-react';
+import { WorkerDetailModal } from './WorkerDetailModal';
 
 export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
+    const [selectedDetail, setSelectedDetail] = useState<any>(null);
+
+    const handleOpenDetail = (type: string, data: any) => {
+        setSelectedDetail({ ...data, type });
+    };
+
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
             {/* Shift Command Header */}
@@ -50,15 +58,19 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                             <ClipboardList className="text-blue-600" size={24} /> Mis Tareas
                         </h3>
                         <div className="flex gap-2">
-                            <div className="px-3 py-1 bg-blue-50 rounded-lg text-[9px] font-black text-blue-600 uppercase tracking-widest">Activas: 2</div>
+                            <button
+                                onClick={() => onNavigate?.('my_tasks')}
+                                className="px-3 py-1 bg-blue-50 rounded-lg text-[9px] font-black text-blue-600 uppercase tracking-widest"
+                            >
+                                Ver Todo
+                            </button>
                         </div>
                     </div>
 
                     <div className="space-y-4">
-                        <WorkerTaskItem title="Descargar container #C-223" type="ALMACÉN" priority="URGENTE" icon={<Zap size={16} />} />
-                        <WorkerTaskItem title="Inventario Pasillo 4 (Filtros)" type="CONTEO" priority="ALTA" icon={<Zap size={16} />} />
-                        <WorkerTaskItem title="Etiquetado de Lote Q4-9" type="PLANTA" priority="MEDIA" icon={<Zap size={16} />} />
-                        <WorkerTaskItem title="Apoyo en despacho a PLC" type="LOGÍSTICA" priority="BAJA" icon={<Zap size={16} />} />
+                        <WorkerTaskItem title="Descargar container #C-223" type="ALMACÉN" priority="URGENTE" icon={<Zap size={16} />} onClick={() => handleOpenDetail('task', { title: "Descargar container #C-223", priority: "URGENTE", zone: "Puerto B" })} />
+                        <WorkerTaskItem title="Inventario Pasillo 4 (Filtros)" type="CONTEO" priority="ALTA" icon={<Zap size={16} />} onClick={() => handleOpenDetail('task', { title: "Inventario Pasillo 4", priority: "ALTA", zone: "Pasillo 4" })} />
+                        <WorkerTaskItem title="Etiquetado de Lote Q4-9" type="PLANTA" priority="MEDIA" icon={<Zap size={16} />} onClick={() => handleOpenDetail('task', { title: "Etiquetado Q4-9", priority: "MEDIA", zone: "Planta Principal" })} />
                     </div>
                 </div>
 
@@ -78,16 +90,11 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                             icon={<ShieldCheck className="text-blue-600" size={18} />}
                         />
                         <SimpleCommItem
-                            title="Cambio de Horario - Semana Santa"
-                            date="Ayer"
-                            type="HORARIO"
-                            icon={<Calendar className="text-emerald-600" size={18} />}
-                        />
-                        <SimpleCommItem
-                            title="Reincorporación de Beneficios"
-                            date="Hace 3 días"
-                            type="RRHH"
-                            icon={<FileText className="text-purple-600" size={18} />}
+                            title="Recibo de Pago - Enero 2026"
+                            date="Hoy"
+                            type="DOCUMENTO"
+                            icon={<FileText className="text-emerald-600" size={18} />}
+                            onClick={() => handleOpenDetail('document', { title: "Recibo de Pago Enero", date: "Hoy" })}
                         />
                     </div>
 
@@ -96,11 +103,17 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     </button>
                 </div>
             </div>
+
+            <WorkerDetailModal
+                isOpen={!!selectedDetail}
+                onClose={() => setSelectedDetail(null)}
+                data={selectedDetail}
+            />
         </div>
     );
 }
 
-function WorkerTaskItem({ title, type, priority, icon }: any) {
+function WorkerTaskItem({ title, type, priority, icon, onClick }: any) {
     const priorities: any = {
         URGENTE: 'bg-rose-600 text-white',
         ALTA: 'bg-amber-500 text-white',
@@ -109,7 +122,10 @@ function WorkerTaskItem({ title, type, priority, icon }: any) {
     };
 
     return (
-        <div className="group flex items-center justify-between p-6 rounded-3xl bg-gray-50 border border-transparent hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-gray-100 transition-all cursor-pointer">
+        <div
+            onClick={onClick}
+            className="group flex items-center justify-between p-6 rounded-3xl bg-gray-50 border border-transparent hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-gray-100 transition-all cursor-pointer"
+        >
             <div className="flex items-center gap-5">
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 ${priorities[priority]}`}>
                     {icon}
@@ -126,9 +142,12 @@ function WorkerTaskItem({ title, type, priority, icon }: any) {
     );
 }
 
-function SimpleCommItem({ title, date, type, icon }: any) {
+function SimpleCommItem({ title, date, type, icon, onClick }: any) {
     return (
-        <div className="flex items-start gap-5 p-4 rounded-2xl hover:bg-slate-50 transition-all cursor-default group">
+        <div
+            onClick={onClick}
+            className="flex items-start gap-5 p-4 rounded-2xl hover:bg-slate-50 transition-all cursor-pointer group"
+        >
             <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-white group-hover:shadow-md transition-all">
                 {icon}
             </div>

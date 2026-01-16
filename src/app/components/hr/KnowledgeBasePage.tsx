@@ -1,4 +1,4 @@
-import { BookOpen, Search, FolderOpen, FileText, ChevronRight, Download, Star, Filter } from 'lucide-react';
+import { BookOpen, Search, FolderOpen, FileText, Download, Star } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 

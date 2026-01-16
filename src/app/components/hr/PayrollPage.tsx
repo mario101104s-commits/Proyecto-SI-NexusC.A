@@ -1,4 +1,4 @@
-import { DollarSign, CreditCard, Calendar, ArrowUpRight, TrendingUp, Filter, ChevronRight, FileText, Wallet } from 'lucide-react';
+import { DollarSign, ArrowUpRight, FileText, Wallet } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 
 export function PayrollPage() {
@@ -86,7 +86,7 @@ export function PayrollPage() {
                 <div className="p-10 border-b border-gray-50 flex justify-between items-center">
                     <h4 className="text-xl font-black text-gray-800 tracking-tight">Historial de Pagos</h4>
                     <Button variant="ghost" className="text-gray-400 font-black text-xs uppercase tracking-widest hover:bg-gray-50 rounded-xl">
-                        Ver Todo <Filter size={14} className="ml-2" />
+                        Ver Todo
                     </Button>
                 </div>
                 <div className="overflow-x-auto">

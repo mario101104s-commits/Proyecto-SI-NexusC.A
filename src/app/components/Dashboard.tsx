@@ -84,6 +84,11 @@ import { BudgetPage } from '@/app/components/finance/BudgetPage';
 import { EmployeesPage } from '@/app/components/hr/EmployeesPage';
 import { RecruitmentPage } from '@/app/components/hr/RecruitmentPage';
 import { TrainingPage } from '@/app/components/hr/TrainingPage';
+import { CalendarPage } from '@/app/components/ops/CalendarPage';
+import { DocumentsPage } from '@/app/components/ops/DocumentsPage';
+import { TasksPage } from '@/app/components/ops/TasksPage';
+import { MyTasksPage } from '@/app/components/ops/MyTasksPage';
+import { PersonalDocsPage } from '@/app/components/ops/PersonalDocsPage';
 import { MySalesPage } from '@/app/components/sales/MySalesPage';
 import { ClientsPage } from '@/app/components/sales/ClientsPage';
 import { ProductCatalogPage } from '@/app/components/sales/ProductCatalogPage';
@@ -348,6 +353,15 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'reception': return <ReceptionPage />;
       case 'dispatch': return <DispatchPage />;
       case 'adjustments': return <InventoryAdjustmentsPage />;
+
+      // Assistant specialized views
+      case 'calendar': return <CalendarPage />;
+      case 'documents': return <DocumentsPage />;
+      case 'tasks': return <TasksPage />;
+
+      // Worker specialized views
+      case 'my_tasks': return <MyTasksPage />;
+      case 'personal_docs': return <PersonalDocsPage />;
 
       default: return <ModulePlaceholder title={getPageTitle()} />;
     }

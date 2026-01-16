@@ -1,4 +1,4 @@
-import { Calendar, Clock, CheckCircle2, XCircle, AlertCircle, Filter, ChevronRight, MapPin } from 'lucide-react';
+import { Search, Filter, ShoppingBag, ChevronRight, Package, Info } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 

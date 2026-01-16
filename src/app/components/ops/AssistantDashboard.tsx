@@ -1,7 +1,14 @@
+import { useState } from 'react';
 import { Calendar, FileText, MessageSquare, ClipboardList, Clock, Bell, CheckCircle2, Download, Plus, Star } from 'lucide-react';
+import { AssistantDetailModal } from './AssistantDetailModal';
 
 export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
+    const [selectedDetail, setSelectedDetail] = useState<any>(null);
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    const handleOpenDetail = (type: string, data: any) => {
+        setSelectedDetail({ ...data, type });
+    };
 
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -18,7 +25,10 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     </p>
                 </div>
                 <div className="flex gap-4">
-                    <button className="px-6 py-4 bg-indigo-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center gap-3 active:scale-95">
+                    <button
+                        onClick={() => onNavigate?.('tasks')}
+                        className="px-6 py-4 bg-indigo-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center gap-3 active:scale-95"
+                    >
                         <Plus size={20} /> Nueva Tarea
                     </button>
                     <button className="w-12 h-12 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-gray-400 hover:text-indigo-600 transition-all relative">
@@ -36,13 +46,15 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     desc="Eventos para hoy"
                     icon={<Calendar size={24} />}
                     color="indigo"
+                    onClick={() => onNavigate?.('calendar')}
                 />
                 <AdminToolCard
-                    title="Inbox Nexus"
+                    title="Nexus Hub"
                     value="12"
                     desc="Mensajes sin leer"
                     icon={<MessageSquare size={24} />}
                     color="emerald"
+                    onClick={() => onNavigate?.('communication')}
                 />
                 <AdminToolCard
                     title="Asignaciones"
@@ -50,6 +62,7 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     desc="Tareas activas"
                     icon={<ClipboardList size={24} />}
                     color="purple"
+                    onClick={() => onNavigate?.('tasks')}
                 />
             </div>
 
@@ -65,10 +78,30 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     </div>
 
                     <div className="space-y-4 flex-1">
-                        <AdminTaskRow title="Enviar reportes semanales de ventas" time="09:00 AM" status="A tiempo" />
-                        <AdminTaskRow title="Confirmar pedidos de compra pendientes" time="10:30 AM" status="Pendiente" />
-                        <AdminTaskRow title="Actualizar base de datos de proveedores" time="02:00 PM" status="En curso" />
-                        <AdminTaskRow title="Preparar salón de reuniones principal" time="04:00 PM" status="Completado" />
+                        <AdminTaskRow
+                            title="Enviar reportes semanales de ventas"
+                            time="09:00 AM"
+                            status="A tiempo"
+                            onClick={() => handleOpenDetail('task', { title: "Reportes Semanales", priority: "Alta", time: "09:00 AM" })}
+                        />
+                        <AdminTaskRow
+                            title="Confirmar pedidos de compra pendientes"
+                            time="10:30 AM"
+                            status="Pendiente"
+                            onClick={() => handleOpenDetail('task', { title: "Confirmar Pedidos", priority: "Urgente", time: "10:30 AM" })}
+                        />
+                        <AdminTaskRow
+                            title="Actualizar base de datos de proveedores"
+                            time="02:00 PM"
+                            status="En curso"
+                            onClick={() => handleOpenDetail('task', { title: "Base de Datos", priority: "Media", time: "02:00 PM" })}
+                        />
+                        <AdminTaskRow
+                            title="Preparar salón de reuniones principal"
+                            time="04:00 PM"
+                            status="Completado"
+                            onClick={() => handleOpenDetail('task', { title: "Preparar Salón", priority: "Baja", time: "04:00 PM" })}
+                        />
                     </div>
                 </div>
 
@@ -81,22 +114,31 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     </div>
 
                     <div className="space-y-4 flex-1 overflow-y-auto custom-scrollbar pr-1">
-                        <PremiumDocItem name="Facturas Enero.pdf" date="Hace 2h" size="1.4 MB" />
-                        <PremiumDocItem name="Memorándum Dir.docx" date="Hoy" size="24 KB" />
-                        <PremiumDocItem name="Lista Proveedores.xlsx" date="Ayer" size="512 KB" />
-                        <PremiumDocItem name="Manual Ops.pdf" date="12 Ene" size="4.2 MB" />
+                        <PremiumDocItem name="Facturas Enero.pdf" date="Hace 2h" size="1.4 MB" onClick={() => handleOpenDetail('document', { name: "Facturas Enero.pdf", size: "1.4 MB" })} />
+                        <PremiumDocItem name="Memorándum Dir.docx" date="Hoy" size="24 KB" onClick={() => handleOpenDetail('document', { name: "Memorándum Dir.docx", size: "24 KB" })} />
+                        <PremiumDocItem name="Lista Proveedores.xlsx" date="Ayer" size="512 KB" onClick={() => handleOpenDetail('document', { name: "Lista Proveedores.xlsx", size: "512 KB" })} />
+                        <PremiumDocItem name="Manual Ops.pdf" date="12 Ene" size="4.2 MB" onClick={() => handleOpenDetail('document', { name: "Manual Ops.pdf", size: "4.2 MB" })} />
                     </div>
 
-                    <button className="w-full mt-8 py-4 bg-white/10 hover:bg-white/20 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5">
-                        Subir Documento
+                    <button
+                        onClick={() => onNavigate?.('documents')}
+                        className="w-full mt-8 py-4 bg-white/10 hover:bg-white/20 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5"
+                    >
+                        Ver Repositorio
                     </button>
                 </div>
             </div>
+
+            <AssistantDetailModal
+                isOpen={!!selectedDetail}
+                onClose={() => setSelectedDetail(null)}
+                data={selectedDetail}
+            />
         </div>
     );
 }
 
-function AdminToolCard({ title, value, desc, icon, color }: any) {
+function AdminToolCard({ title, value, desc, icon, color, onClick }: any) {
     const accents: any = {
         indigo: 'text-indigo-600 bg-indigo-50 shadow-indigo-100',
         emerald: 'text-emerald-600 bg-emerald-50 shadow-emerald-100',
@@ -104,7 +146,10 @@ function AdminToolCard({ title, value, desc, icon, color }: any) {
     };
 
     return (
-        <div className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:-translate-y-1 transition-all">
+        <div
+            onClick={onClick}
+            className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:-translate-y-1 transition-all cursor-pointer"
+        >
             <div className={`w-16 h-16 rounded-[1.5rem] ${accents[color]} flex items-center justify-center shadow-inner transition-transform group-hover:scale-110`}>
                 {icon}
             </div>
@@ -119,7 +164,7 @@ function AdminToolCard({ title, value, desc, icon, color }: any) {
     );
 }
 
-function AdminTaskRow({ title, time, status }: any) {
+function AdminTaskRow({ title, time, status, onClick }: any) {
     const statusStyles: any = {
         'Completado': 'bg-emerald-50 text-emerald-600',
         'Pendiente': 'bg-rose-50 text-rose-600',
@@ -128,7 +173,10 @@ function AdminTaskRow({ title, time, status }: any) {
     };
 
     return (
-        <div className="flex items-center justify-between p-5 rounded-3xl bg-gray-50/50 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-xl hover:shadow-gray-50 transition-all group">
+        <div
+            onClick={onClick}
+            className="flex items-center justify-between p-5 rounded-3xl bg-gray-50/50 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-xl hover:shadow-gray-50 transition-all group cursor-pointer"
+        >
             <div className="flex items-center gap-6">
                 <div className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-indigo-500 transition-colors" />
                 <div>
@@ -145,9 +193,9 @@ function AdminTaskRow({ title, time, status }: any) {
     );
 }
 
-function PremiumDocItem({ name, date, size }: any) {
+function PremiumDocItem({ name, date, size, onClick }: any) {
     return (
-        <div className="group cursor-pointer">
+        <div className="group cursor-pointer" onClick={onClick}>
             <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-transparent hover:bg-white/10 hover:border-white/10 transition-all">
                 <div className="flex items-center gap-4">
                     <div className="p-3 bg-white/5 rounded-xl group-hover:text-indigo-400 transition-colors">

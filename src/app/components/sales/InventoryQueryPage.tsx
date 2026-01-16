@@ -1,4 +1,4 @@
-import { Search, Filter, Package, MapPin, ChevronRight, Info, CheckCircle2, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Search, Package, MapPin, ArrowRight } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 

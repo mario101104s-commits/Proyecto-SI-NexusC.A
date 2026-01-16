@@ -1,4 +1,4 @@
-import { ClipboardList, Star, TrendingUp, ChevronRight, User, Calendar, Search, Filter } from 'lucide-react';
+import { ClipboardList, Star, TrendingUp, ChevronRight, Calendar, Filter } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 
 export function EvaluationsPage() {

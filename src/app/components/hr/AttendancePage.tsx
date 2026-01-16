@@ -1,4 +1,4 @@
-import { Calendar, Clock, User, CheckCircle2, XCircle, AlertCircle, Filter, ChevronRight, MapPin } from 'lucide-react';
+import { Calendar, Clock, CheckCircle2, XCircle, AlertCircle, Filter, ChevronRight, MapPin } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 
 export function AttendancePage() {
