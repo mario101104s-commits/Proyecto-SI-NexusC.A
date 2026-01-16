@@ -25,9 +25,9 @@ export const getPermissions = (email: string) => {
     const user = USERS_REGISTRY[email];
     if (!user) return [];
 
-    // Estratégico ve todo
+    // Estratégico (Director) tiene vista ejecutiva delegada
     if (user.role === 'strategic') {
-        return ['home', 'sales', 'inventory', 'purchases', 'finance', 'hr', 'communication', 'reports', 'settings'];
+        return ['home', 'executive_reports', 'budget_control', 'corporate_announcements', 'settings'];
     }
 
     // Táctico ve su área + comunicación + perfil
