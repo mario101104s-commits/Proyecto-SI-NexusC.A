@@ -57,7 +57,7 @@ export const getPermissions = (email: string) => {
 
     // Prompt 9: Gerente de RRHH
     if (email === 'gerente.rrhh@nexus.com') {
-        return ['home', 'employees', 'attendance', 'payroll', 'evaluations', 'training', 'knowledge_base', 'settings'];
+        return ['home', 'employees', 'recruitment', 'attendance', 'payroll', 'evaluations', 'training', 'knowledge_base', 'settings'];
     }
 
     // Prompt 10: Vendedor

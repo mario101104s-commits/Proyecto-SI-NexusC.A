@@ -22,7 +22,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                 </div>
                 <div className="flex gap-4">
                     <button
-                        onClick={() => onNavigate?.('orders')}
+                        onClick={() => onNavigate?.('my_orders')}
                         className="px-6 py-4 bg-emerald-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center gap-3 active:scale-95"
                     >
                         <PlusCircle size={20} /> Nueva Venta
@@ -46,7 +46,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     icon={<Target size={24} />}
                     color="emerald"
                     progress={85}
-                    onClick={() => onNavigate?.('sales')}
+                    onClick={() => onNavigate?.('my_performance')}
                 />
                 <SellerStatCard
                     title="Cotiz. Abiertas"
@@ -56,7 +56,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     icon={<FileText size={24} />}
                     color="blue"
                     progress={60}
-                    onClick={() => onNavigate?.('quotes')}
+                    onClick={() => onNavigate?.('my_quotes')}
                 />
                 <SellerStatCard
                     title="Cartera Cliente"
@@ -66,7 +66,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     icon={<Handshake size={24} />}
                     color="purple"
                     progress={40}
-                    onClick={() => onNavigate?.('customers')}
+                    onClick={() => onNavigate?.('my_customers')}
                 />
                 <SellerStatCard
                     title="Seguimientos"

@@ -86,6 +86,12 @@ import { RecruitmentPage } from '@/app/components/hr/RecruitmentPage';
 import { TrainingPage } from '@/app/components/hr/TrainingPage';
 import { MySalesPage } from '@/app/components/sales/MySalesPage';
 import { ClientsPage } from '@/app/components/sales/ClientsPage';
+import { ProductCatalogPage } from '@/app/components/sales/ProductCatalogPage';
+import { InventoryQueryPage } from '@/app/components/sales/InventoryQueryPage';
+import { AttendancePage } from '@/app/components/hr/AttendancePage';
+import { PayrollPage } from '@/app/components/hr/PayrollPage';
+import { EvaluationsPage } from '@/app/components/hr/EvaluationsPage';
+import { KnowledgeBasePage } from '@/app/components/hr/KnowledgeBasePage';
 
 interface DashboardProps {
   username: string;
@@ -306,8 +312,19 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'employees': return <EmployeesPage />;
       case 'recruitment': return <RecruitmentPage />;
       case 'training': return <TrainingPage />;
-      case 'seller_sales': return <MySalesPage />;
-      case 'seller_clients': return <ClientsPage />;
+      case 'attendance': return <AttendancePage />;
+      case 'payroll': return <PayrollPage />;
+      case 'evaluations': return <EvaluationsPage />;
+      case 'knowledge_base': return <KnowledgeBasePage />;
+
+      // Seller specialized views
+      case 'my_performance': return <MySalesPage />;
+      case 'my_customers': return <ClientsPage />;
+      case 'my_orders': return <MySalesPage />; // Sharing for now or dedicated list
+      case 'my_quotes': return <QuotesPage />;
+      case 'catalog': return <ProductCatalogPage />; // New premium catalog
+      case 'inventory_query': return <InventoryQueryPage />;
+
       case 'communication': return <CommunicationPage />;
       case 'reports': return <ReportsPage />;
       case 'settings': return <ProfilePage />;
