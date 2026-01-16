@@ -40,7 +40,12 @@ export function OperationsDashboard({ onNavigate }: { onNavigate?: (menu: string
                 </div>
                 <div className="flex bg-white p-2 rounded-2xl border border-gray-100 shadow-sm">
                     <button className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-blue-100 hover:-translate-y-1 transition-all">Regional</button>
-                    <button className="px-8 py-3 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600 transition-all">Nacional</button>
+                    <button
+                        onClick={() => alert('Visualización Nacional en proceso de carga...')}
+                        className="px-8 py-3 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600 transition-all"
+                    >
+                        Nacional
+                    </button>
                 </div>
             </div>
 
@@ -203,8 +208,24 @@ export function OperationsDashboard({ onNavigate }: { onNavigate?: (menu: string
                                     details: "Se reporta obstrucción en la ARC. La unidad de transporte registra un retraso estimado de 45 minutos para la entrega en el centro de distribución Caracas."
                                 })}
                             />
-                            <RouteItem from="MAR" to="VAL" status="En Ruta" bg="bg-emerald-500" />
-                            <RouteItem from="VAL" to="PLC" status="En Ruta" bg="bg-emerald-500" />
+                            <RouteItem
+                                from="MAR" to="VAL" status="En Ruta" bg="bg-emerald-500"
+                                onClick={() => setSelectedDetail({
+                                    title: "Ruta MAR -> VAL",
+                                    type: 'route',
+                                    status: 'En Ruta',
+                                    details: "Unidad transportando carga pesada de filtros. Tiempo estimado de arribo: 3 horas."
+                                })}
+                            />
+                            <RouteItem
+                                from="VAL" to="PLC" status="En Ruta" bg="bg-emerald-500"
+                                onClick={() => setSelectedDetail({
+                                    title: "Ruta VAL -> PLC",
+                                    type: 'route',
+                                    status: 'En Ruta',
+                                    details: "Transbordo de mercancía completado. Unidad en autopista Gran Mariscal de Ayacucho."
+                                })}
+                            />
                         </div>
                     </div>
                 </div>

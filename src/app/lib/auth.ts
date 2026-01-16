@@ -32,7 +32,7 @@ export const getPermissions = (email: string) => {
 
     // Prompt 4: Gerente General
     if (email === 'gerentegeneral@nexus.com') {
-        return ['home', 'area_reports', 'key_indicators', 'meetings', 'announcements', 'settings', 'sales', 'inventory', 'purchases', 'finance', 'hr'];
+        return ['home', 'area_reports', 'key_indicators', 'meetings', 'corporate_announcements', 'settings', 'sales', 'inventory', 'purchases', 'finance', 'hr'];
     }
 
     // Prompt 5: Gerente de Operaciones
@@ -52,7 +52,7 @@ export const getPermissions = (email: string) => {
 
     // Prompt 8: Gerente de Finanzas
     if (email === 'gerente.finanzas@nexus.com') {
-        return ['home', 'billing', 'accounts_receivable', 'accounts_payable', 'budget', 'fin_reports', 'reconciliations', 'settings'];
+        return ['home', 'billing', 'cxc_cxp', 'budget', 'fin_reports', 'reconciliations', 'settings'];
     }
 
     // Prompt 9: Gerente de RRHH
@@ -72,7 +72,7 @@ export const getPermissions = (email: string) => {
 
     // Prompt 12: Trabajador
     if (email === 'trabajador@nexus.com') {
-        return ['home', 'my_tasks', 'attendance', 'announcements', 'personal_docs', 'settings'];
+        return ['home', 'my_tasks', 'attendance', 'corporate_announcements', 'personal_docs', 'settings'];
     }
 
     return ['home', 'settings'];

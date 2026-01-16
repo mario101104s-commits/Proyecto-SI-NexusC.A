@@ -56,7 +56,7 @@ export function FinanceManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
                     icon={<FileText size={24} />}
                     color="purple"
                     trend="-12k"
-                    onClick={() => onNavigate?.('accounts_receivable')}
+                    onClick={() => onNavigate?.('cxc_cxp')}
                 />
                 <FinMetricCard
                     title="Flujo de Caja Neto"

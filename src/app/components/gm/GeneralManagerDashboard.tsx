@@ -172,7 +172,10 @@ export function GeneralManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
                         />
                     </div>
 
-                    <button className="mt-8 w-full py-4 bg-white text-slate-900 rounded-2xl font-black text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
+                    <button
+                        onClick={() => alert('Todas las alertas han sido marcadas como leídas')}
+                        className="mt-8 w-full py-4 bg-white text-slate-900 rounded-2xl font-black text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+                    >
                         Atender Todas <ChevronRight size={18} />
                     </button>
                 </div>

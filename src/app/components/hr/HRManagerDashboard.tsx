@@ -27,7 +27,12 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     >
                         Plantilla
                     </button>
-                    <button className="px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600">Reclasificación</button>
+                    <button
+                        onClick={() => onNavigate?.('employees')}
+                        className="px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600"
+                    >
+                        Reclasificación
+                    </button>
                 </div>
             </div>
 
@@ -47,6 +52,7 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     desc="Anual Proyectado"
                     icon={<Sparkles size={24} />}
                     color="blue"
+                    onClick={() => onNavigate?.('hr')}
                 />
                 <PremiumHRCard
                     title="Evaluaciones"

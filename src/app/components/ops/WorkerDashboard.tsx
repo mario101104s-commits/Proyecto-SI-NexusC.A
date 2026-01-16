@@ -25,10 +25,16 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                         <p className="text-slate-400 font-medium">Tienes <span className="text-white font-bold">04 tareas</span> críticas asignadas para tu turno.</p>
 
                         <div className="mt-8 flex flex-wrap gap-4">
-                            <button className="px-8 py-4 bg-white text-slate-900 rounded-2xl font-black text-xs tracking-wider uppercase flex items-center gap-3 hover:bg-blue-50 transition-all shadow-xl shadow-white/5 active:scale-95">
+                            <button
+                                onClick={() => alert('Turno Iniciado con Éxito')}
+                                className="px-8 py-4 bg-white text-slate-900 rounded-2xl font-black text-xs tracking-wider uppercase flex items-center gap-3 hover:bg-blue-50 transition-all shadow-xl shadow-white/5 active:scale-95"
+                            >
                                 <LogIn size={18} /> Iniciar Turno (AM)
                             </button>
-                            <button className="px-8 py-4 bg-slate-800 text-slate-400 border border-slate-700 rounded-2xl font-black text-xs tracking-wider uppercase flex items-center gap-3 hover:text-white hover:bg-slate-700 transition-all active:scale-95">
+                            <button
+                                onClick={() => alert('Sesión de Trabajo Cerrada')}
+                                className="px-8 py-4 bg-slate-800 text-slate-400 border border-slate-700 rounded-2xl font-black text-xs tracking-wider uppercase flex items-center gap-3 hover:text-white hover:bg-slate-700 transition-all active:scale-95"
+                            >
                                 <LogOut size={18} /> Finalizar Turno
                             </button>
                         </div>
@@ -98,7 +104,10 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                         />
                     </div>
 
-                    <button className="mt-8 w-full py-4 border-2 border-dashed border-gray-100 text-gray-400 rounded-2xl font-black text-xs uppercase tracking-widest hover:border-blue-200 hover:text-blue-600 transition-all flex items-center justify-center gap-2">
+                    <button
+                        onClick={() => onNavigate?.('corporate_announcements')}
+                        className="mt-8 w-full py-4 border-2 border-dashed border-gray-100 text-gray-400 rounded-2xl font-black text-xs uppercase tracking-widest hover:border-blue-200 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
+                    >
                         Ver Todos los Comunicados <ChevronRight size={16} />
                     </button>
                 </div>

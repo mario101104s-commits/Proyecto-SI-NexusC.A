@@ -23,7 +23,6 @@ import {
   Users2,
   Receipt,
   Wallet,
-  CreditCard,
   PieChart as PieChartIcon,
   Scale,
   GraduationCap,
@@ -46,7 +45,6 @@ import { ProfilePage } from '@/app/components/profile/ProfilePage';
 import { DashboardWidgets } from '@/app/components/DashboardWidgets';
 import { SalesChart, AnnouncementsSection } from '@/app/components/DashboardCharts';
 import { SalesPage } from '@/app/components/sales/SalesPage';
-import nexusLogo from '@/assets/nexus_logo.png';
 import marioProfile from '@/assets/mario_profile.png';
 import { getPermissions, getUserData } from '@/app/lib/auth';
 
@@ -150,8 +148,7 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
 
     // Finanzas
     { id: 'billing', label: 'Facturación', icon: <Receipt size={20} /> },
-    { id: 'accounts_receivable', label: 'CxC', icon: <Wallet size={20} /> },
-    { id: 'accounts_payable', label: 'CxP', icon: <CreditCard size={20} /> },
+    { id: 'cxc_cxp', label: 'CxC & CxP', icon: <Wallet size={20} /> },
     { id: 'budget', label: 'Presupuesto', icon: <PieChartIcon size={20} /> },
     { id: 'fin_reports', label: 'Reportes Fin.', icon: <BarChart3 size={20} /> },
     { id: 'reconciliations', label: 'Conciliaciones', icon: <Scale size={20} /> },
@@ -222,8 +219,7 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
 
       // Finanzas
       case 'billing': return 'Facturación Electrónica';
-      case 'accounts_receivable': return 'Cuentas por Cobrar';
-      case 'accounts_payable': return 'Cuentas por Pagar';
+      case 'cxc_cxp': return 'Cuentas por Cobrar & Pagar';
       case 'budget': return 'Gestión Presupuestaria';
       case 'fin_reports': return 'Estados Financieros';
       case 'reconciliations': return 'Conciliaciones Bancarias';
@@ -307,8 +303,7 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
         return <BillingPage />;
       case 'budget':
         return <BudgetPage />;
-      case 'accounts_receivable':
-      case 'accounts_payable':
+      case 'cxc_cxp':
       case 'fin_reports':
       case 'reconciliations':
         return <FinancePage />;
@@ -371,10 +366,24 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     <div className="flex h-screen overflow-hidden bg-slate-50 font-sans">
       {/* Sidebar Area */}
       <aside className={`${isSidebarCollapsed ? 'w-20' : 'w-64'} bg-blue-900 transition-all duration-300 flex flex-col h-full z-30 shadow-2xl shrink-0`}>
-        <div className="p-4 flex items-center justify-between border-b border-blue-800 shrink-0">
-          {!isSidebarCollapsed && <img src={nexusLogo} alt="NEXUS" className="h-10 w-auto invert brightness-0" />}
-          <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className="p-1.5 rounded-lg bg-blue-800/50 text-blue-100 hover:bg-blue-700 transition-colors">
-            {isSidebarCollapsed ? <Menu size={20} /> : <X size={20} />}
+        <div className="h-20 flex items-center px-6 border-b border-blue-800/50 shrink-0 mb-2">
+          {!isSidebarCollapsed ? (
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-lg shadow-black/20">
+                <div className="w-4 h-4 bg-blue-900 rounded-sm" />
+              </div>
+              <span className="text-xl font-black text-white tracking-[0.2em] italic">NEXUS</span>
+            </div>
+          ) : (
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mx-auto shadow-lg shadow-black/20">
+              <div className="w-4 h-4 bg-blue-900 rounded-sm" />
+            </div>
+          )}
+        </div>
+
+        <div className="px-4 py-2 flex items-center justify-end">
+          <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className="p-2 rounded-xl bg-blue-800/30 text-blue-100 hover:bg-blue-600/50 hover:text-white transition-all">
+            {isSidebarCollapsed ? <Menu size={18} /> : <X size={18} />}
           </button>
         </div>
 

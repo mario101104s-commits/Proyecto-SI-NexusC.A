@@ -76,6 +76,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     icon={<Phone size={24} />}
                     color="amber"
                     progress={100}
+                    onClick={() => onNavigate?.('communication')}
                 />
             </div>
 
@@ -87,7 +88,10 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                             <h3 className="text-xl font-black text-gray-800 tracking-tight">Mi Agenda de Seguimiento</h3>
                             <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1">Llamadas y Visitas Programadas</p>
                         </div>
-                        <button className="p-3 bg-gray-50 text-gray-400 rounded-2xl hover:bg-blue-600 hover:text-white transition-all">
+                        <button
+                            onClick={() => onNavigate?.('calendar')}
+                            className="p-3 bg-gray-50 text-gray-400 rounded-2xl hover:bg-blue-600 hover:text-white transition-all"
+                        >
                             <Calendar size={20} />
                         </button>
                     </div>
