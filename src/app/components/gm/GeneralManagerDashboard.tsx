@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { TrendingUp, AlertTriangle, Package, ShoppingCart, UserMinus, Calendar, ChevronRight, Activity, Target } from 'lucide-react';
+import { AlertDetailModal } from './AlertDetailModal';
 
 const DEPT_PERFORMANCE_DATA = [
     { name: 'Ventas', score: 92, color: '#3b82f6' },
@@ -8,11 +10,20 @@ const DEPT_PERFORMANCE_DATA = [
     { name: 'Finanzas', score: 88, color: '#f59e0b' },
 ];
 
-export function GeneralManagerDashboard() {
+export function GeneralManagerDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const [viewMode, setViewMode] = useState<'live' | 'history'>('live');
+    const [selectedAlert, setSelectedAlert] = useState<any>(null);
 
     return (
-        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
+            {/* Alert Detail Modal */}
+            <AlertDetailModal
+                isOpen={!!selectedAlert}
+                onClose={() => setSelectedAlert(null)}
+                alert={selectedAlert}
+            />
+
             {/* Control Center Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
@@ -24,8 +35,18 @@ export function GeneralManagerDashboard() {
                     </p>
                 </div>
                 <div className="flex bg-white p-2 rounded-[2rem] shadow-sm border border-gray-100">
-                    <button className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm tracking-wider uppercase transition-all shadow-xl shadow-gray-200 hover:-translate-y-1">En Tiempo Real</button>
-                    <button className="px-8 py-3 text-gray-400 font-black text-sm tracking-wider uppercase hover:text-gray-900 transition-all">Histórico</button>
+                    <button
+                        onClick={() => setViewMode('live')}
+                        className={`px-8 py-3 rounded-2xl font-black text-sm tracking-wider uppercase transition-all ${viewMode === 'live' ? 'bg-slate-900 text-white shadow-xl shadow-gray-200 hover:-translate-y-1' : 'text-gray-400 hover:text-gray-900'}`}
+                    >
+                        En Tiempo Real
+                    </button>
+                    <button
+                        onClick={() => setViewMode('history')}
+                        className={`px-8 py-3 rounded-2xl font-black text-sm tracking-wider uppercase transition-all ${viewMode === 'history' ? 'bg-slate-900 text-white shadow-xl shadow-gray-200 hover:-translate-y-1' : 'text-gray-400 hover:text-gray-900'}`}
+                    >
+                        Histórico
+                    </button>
                 </div>
             </div>
 
@@ -38,6 +59,7 @@ export function GeneralManagerDashboard() {
                     icon={<Activity size={24} />}
                     color="blue"
                     bg="bg-blue-600"
+                    onClick={() => onNavigate?.('key_indicators')}
                 />
                 <ManagerWidget
                     title="Meta Trimestral"
@@ -46,6 +68,7 @@ export function GeneralManagerDashboard() {
                     icon={<Target size={24} />}
                     color="emerald"
                     bg="bg-emerald-600"
+                    onClick={() => onNavigate?.('key_indicators')}
                 />
                 <ManagerWidget
                     title="Alertas Activas"
@@ -54,19 +77,26 @@ export function GeneralManagerDashboard() {
                     icon={<AlertTriangle size={24} />}
                     color="rose"
                     bg="bg-rose-600"
+                    onClick={() => {
+                        const alertContainer = document.getElementById('alert-center');
+                        alertContainer?.scrollIntoView({ behavior: 'smooth' });
+                    }}
                 />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Department Health Chart */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50">
+                <div
+                    className="lg:col-span-2 bg-white p-12 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 cursor-pointer group hover:shadow-2xl transition-all"
+                    onClick={() => onNavigate?.('area_reports')}
+                >
                     <div className="flex items-center justify-between mb-10">
                         <div>
-                            <h3 className="text-xl font-black text-gray-800 tracking-tight">Salud Departamental</h3>
+                            <h3 className="text-2xl font-black text-gray-800 tracking-tight group-hover:text-emerald-600 transition-colors">Salud Departamental</h3>
                             <p className="text-sm text-gray-400 font-bold mt-1 uppercase tracking-wider">Índice de Rendimiento Operativo</p>
                         </div>
-                        <div className="p-3 bg-gray-50 rounded-2xl">
-                            <TrendingUp className="text-gray-400" size={20} />
+                        <div className="p-4 bg-gray-50 rounded-2xl group-hover:bg-slate-900 group-hover:text-white transition-all">
+                            <TrendingUp size={24} />
                         </div>
                     </div>
 
@@ -98,7 +128,7 @@ export function GeneralManagerDashboard() {
                 </div>
 
                 {/* Command Alert Center */}
-                <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-gray-200 text-white flex flex-col">
+                <div id="alert-center" className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-gray-200 text-white flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-xl font-black flex items-center gap-3">
                             <span className="w-2 h-8 bg-rose-500 rounded-full" /> Alert Center
@@ -112,18 +142,33 @@ export function GeneralManagerDashboard() {
                             title="Desabastecimiento"
                             desc="Stock crítico en Filtros (VAL)"
                             urgency="Crítico"
+                            onClick={() => setSelectedAlert({
+                                title: "Desabastecimiento",
+                                desc: "Stock crítico en Filtros (VAL). Se requiere reposición urgente para no detener líneas de producción.",
+                                urgency: "Crítico"
+                            })}
                         />
                         <ManagerAlertItem
                             icon={<ShoppingCart className="text-amber-400" size={18} />}
                             title="Desvío de Ventas"
                             desc="PLC registra -12% vs semanial"
                             urgency="Aviso"
+                            onClick={() => setSelectedAlert({
+                                title: "Desvío de Ventas",
+                                desc: "El centro de distribución PLC registra -12% en ventas contra la meta semanal proyectada.",
+                                urgency: "Aviso"
+                            })}
                         />
                         <ManagerAlertItem
                             icon={<UserMinus className="text-blue-400" size={18} />}
                             title="Rotación de Personal"
                             desc="3 bajas reportadas en Logística"
                             urgency="Normal"
+                            onClick={() => setSelectedAlert({
+                                title: "Rotación de Personal",
+                                desc: "Se han reportado 3 bajas voluntarias en el departamento de Logística en las últimas 48 horas.",
+                                urgency: "Normal"
+                            })}
                         />
                     </div>
 
@@ -136,9 +181,12 @@ export function GeneralManagerDashboard() {
     );
 }
 
-function ManagerWidget({ title, value, trend, icon, color, bg }: any) {
+function ManagerWidget({ title, value, trend, icon, color, bg, onClick }: any) {
     return (
-        <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:shadow-2xl transition-all duration-500 cursor-pointer">
+        <div
+            onClick={onClick}
+            className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:shadow-2xl transition-all duration-500 cursor-pointer"
+        >
             <div className={`p-5 rounded-[1.75rem] ${bg} text-white shadow-lg shadow-${color}-100 group-hover:scale-110 transition-transform duration-500`}>
                 {icon}
             </div>
@@ -153,7 +201,7 @@ function ManagerWidget({ title, value, trend, icon, color, bg }: any) {
     );
 }
 
-function ManagerAlertItem({ icon, title, desc, urgency }: any) {
+function ManagerAlertItem({ icon, title, desc, urgency, onClick }: any) {
     const borders: any = {
         Crítico: 'border-l-rose-500',
         Aviso: 'border-l-amber-500',
@@ -161,7 +209,10 @@ function ManagerAlertItem({ icon, title, desc, urgency }: any) {
     };
 
     return (
-        <div className={`p-4 rounded-2xl bg-white/5 border-l-4 ${borders[urgency]} hover:bg-white/10 transition-all group cursor-pointer`}>
+        <div
+            onClick={onClick}
+            className={`p-4 rounded-2xl bg-white/5 border-l-4 ${borders[urgency]} hover:bg-white/10 transition-all group cursor-pointer`}
+        >
             <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2">
                     {icon}

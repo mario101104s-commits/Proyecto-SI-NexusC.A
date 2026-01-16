@@ -56,6 +56,9 @@ import { BudgetControlPage } from '@/app/components/director/BudgetControlPage';
 import { CorporateAnnouncementsPage } from '@/app/components/director/CorporateAnnouncementsPage';
 
 import { GeneralManagerDashboard } from '@/app/components/gm/GeneralManagerDashboard';
+import { BusinessAreasPage } from '@/app/components/gm/BusinessAreasPage';
+import { KeyIndicatorsPage } from '@/app/components/gm/KeyIndicatorsPage';
+import { MeetingsManagementPage } from '@/app/components/gm/MeetingsManagementPage';
 
 import { OperationsDashboard } from '@/app/components/ops/OperationsDashboard';
 import { WarehousesPage } from '@/app/components/ops/WarehousesPage';
@@ -91,10 +94,13 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     { id: 'hr', label: 'RRHH', icon: <Users size={20} /> },
     { id: 'communication', label: 'Comunicación', icon: <MessageSquare size={20} /> },
 
-    // Director Specific
+    // Director & General Manager Specific
     { id: 'executive_reports', label: 'Reportes Ejecutivos', icon: <FileText size={20} /> },
     { id: 'budget_control', label: 'Control Presupuestario', icon: <DollarSign size={20} /> },
     { id: 'corporate_announcements', label: 'Anuncios Corporativos', icon: <Megaphone size={20} /> },
+    { id: 'area_reports', label: 'Gestión de Áreas', icon: <Layers size={20} /> },
+    { id: 'key_indicators', label: 'Indicadores Clave', icon: <Activity size={20} /> },
+    { id: 'meetings', label: 'Gestión de Reuniones', icon: <CalendarIcon size={20} /> },
 
     // Suite Operativa (Tactical)
     { id: 'warehouses', label: 'Almacenes', icon: <MapPin size={20} /> },
@@ -164,6 +170,9 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'executive_reports': return 'Reportes Estratégicos Ejecutivos';
       case 'budget_control': return 'Monitoreo Presupuestario';
       case 'corporate_announcements': return 'Anuncios de Dirección';
+      case 'area_reports': return 'Gestión de Áreas Estratégicas';
+      case 'key_indicators': return 'Indicadores de Desempeño (KPIs)';
+      case 'meetings': return 'Agenda y Reuniones Ejecutivas';
 
       // Suite Operativa
       case 'warehouses': return 'Gestión de Almacenes Regionales';
@@ -222,8 +231,8 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
   const renderContent = () => {
     // Si está en home, mostrar el Dashboard correspondiente por usuario/rol
     if (activeMenu === 'home') {
-      if (userData?.email === 'director@nexus.com') return <StrategicDashboard />;
-      if (userData?.email === 'gerentegeneral@nexus.com') return <GeneralManagerDashboard />;
+      if (userData?.email === 'director@nexus.com') return <StrategicDashboard onNavigate={setActiveMenu} />;
+      if (userData?.email === 'gerentegeneral@nexus.com') return <GeneralManagerDashboard onNavigate={setActiveMenu} />;
       if (userData?.email === 'gerente.operaciones@nexus.com') return <OperationsDashboard />;
       if (userData?.email === 'supervisor.almacen@nexus.com') return <WarehouseSupervisorDashboard />;
       if (userData?.email === 'gerente.ventas@nexus.com') return <SalesManagerDashboard />;
@@ -264,6 +273,9 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'executive_reports': return <ExecutiveReportsPage />;
       case 'budget_control': return <BudgetControlPage />;
       case 'corporate_announcements': return <CorporateAnnouncementsPage />;
+      case 'area_reports': return <BusinessAreasPage />;
+      case 'key_indicators': return <KeyIndicatorsPage />;
+      case 'meetings': return <MeetingsManagementPage />;
 
       // Suite Operativa
       case 'warehouses': return <WarehousesPage />;
