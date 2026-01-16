@@ -77,6 +77,10 @@ import { HRManagerDashboard } from '@/app/components/hr/HRManagerDashboard';
 import { SellerDashboard } from '@/app/components/sales/SellerDashboard';
 import { AssistantDashboard } from '@/app/components/ops/AssistantDashboard';
 import { WorkerDashboard } from '@/app/components/ops/WorkerDashboard';
+import { SalesTeamPage } from '@/app/components/sales/SalesTeamPage';
+import { QuotesPage } from '@/app/components/sales/QuotesPage';
+import { BillingPage } from '@/app/components/finance/BillingPage';
+import { BudgetPage } from '@/app/components/finance/BudgetPage';
 
 interface DashboardProps {
   username: string;
@@ -240,12 +244,12 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       if (userData?.email === 'gerentegeneral@nexus.com') return <GeneralManagerDashboard onNavigate={setActiveMenu} />;
       if (userData?.email === 'gerente.operaciones@nexus.com') return <OperationsDashboard onNavigate={setActiveMenu} />;
       if (userData?.email === 'supervisor.almacen@nexus.com') return <WarehouseSupervisorDashboard onNavigate={setActiveMenu} />;
-      if (userData?.email === 'gerente.ventas@nexus.com') return <SalesManagerDashboard />;
-      if (userData?.email === 'gerente.finanzas@nexus.com') return <FinanceManagerDashboard />;
-      if (userData?.email === 'gerente.rrhh@nexus.com') return <HRManagerDashboard />;
-      if (userData?.email === 'vendedor@nexus.com') return <SellerDashboard />;
-      if (userData?.email === 'asistente@nexus.com') return <AssistantDashboard />;
-      if (userData?.email === 'trabajador@nexus.com') return <WorkerDashboard />;
+      if (userData?.email === 'gerente.ventas@nexus.com') return <SalesManagerDashboard onNavigate={setActiveMenu} />;
+      if (userData?.email === 'gerente.finanzas@nexus.com') return <FinanceManagerDashboard onNavigate={setActiveMenu} />;
+      if (userData?.email === 'gerente.rrhh@nexus.com') return <HRManagerDashboard onNavigate={setActiveMenu} />;
+      if (userData?.email === 'vendedor@nexus.com') return <SellerDashboard onNavigate={setActiveMenu} />;
+      if (userData?.email === 'asistente@nexus.com') return <AssistantDashboard onNavigate={setActiveMenu} />;
+      if (userData?.email === 'trabajador@nexus.com') return <WorkerDashboard onNavigate={setActiveMenu} />;
 
       return (
         <div className="space-y-8 animate-in fade-in duration-500">
@@ -265,10 +269,34 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     const isGM = userData?.email === 'gerentegeneral@nexus.com';
 
     switch (activeMenu) {
-      case 'sales': return <SalesPage readOnly={isGM} />;
+      case 'sales':
+      case 'customers':
+        return <SalesPage readOnly={isGM} />;
+      case 'quotes':
+        return <QuotesPage readOnly={isGM} />;
+      case 'sales_team':
+        return <SalesTeamPage readOnly={isGM} />;
+      case 'orders':
+      case 'catalog':
+      case 'sales_reports':
+      case 'inventory_query':
+        return <SalesPage readOnly={isGM} />; // For now, SalesPage handles main sales context, will specialized if needed
+
       case 'inventory': return <InventoryPage readOnly={isGM} />;
       case 'purchases': return <PurchasesPage readOnly={isGM} />;
-      case 'finance': return <FinancePage readOnly={isGM} />;
+
+      case 'finance':
+        return <FinancePage />;
+      case 'billing':
+        return <BillingPage />;
+      case 'budget':
+        return <BudgetPage />;
+      case 'accounts_receivable':
+      case 'accounts_payable':
+      case 'fin_reports':
+      case 'reconciliations':
+        return <FinancePage />;
+
       case 'hr': return <HRPage readOnly={isGM} />;
       case 'communication': return <CommunicationPage />;
       case 'reports': return <ReportsPage />;

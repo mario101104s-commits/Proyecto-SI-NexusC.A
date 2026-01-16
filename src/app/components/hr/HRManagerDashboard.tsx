@@ -1,6 +1,6 @@
 import { Users, UserPlus, GraduationCap, ClipboardCheck, BarChart2, Calendar, ChevronRight, Search, HeartPulse, Sparkles } from 'lucide-react';
 
-export function HRManagerDashboard() {
+export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     return (

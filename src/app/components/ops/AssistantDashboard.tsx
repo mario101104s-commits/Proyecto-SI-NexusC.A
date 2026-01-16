@@ -1,6 +1,6 @@
 import { Calendar, FileText, MessageSquare, ClipboardList, Clock, Bell, CheckCircle2, Download, Plus, Star } from 'lucide-react';
 
-export function AssistantDashboard() {
+export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     return (

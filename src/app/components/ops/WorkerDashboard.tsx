@@ -1,6 +1,6 @@
 import { ClipboardList, Calendar, Bell, FileText, LogIn, LogOut, ShieldCheck, ChevronRight, Zap } from 'lucide-react';
 
-export function WorkerDashboard() {
+export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
             {/* Shift Command Header */}

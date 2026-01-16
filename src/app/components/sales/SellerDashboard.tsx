@@ -1,6 +1,6 @@
 import { Handshake, FileText, ShoppingBag, Phone, Calendar, PlusCircle, Search, ChevronRight, Clock, Target, Star } from 'lucide-react';
 
-export function SellerDashboard() {
+export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     return (
