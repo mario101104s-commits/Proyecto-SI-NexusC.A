@@ -92,44 +92,44 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-slate-50 p-4 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-slate-50 p-4 font-sans overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" />
       </div>
 
-      <div className="relative w-full max-w-[95rem] grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch justify-center">
+      <div className="relative w-full max-w-[85rem] grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch justify-center scale-90 transition-transform duration-500 origin-center">
         {/* Sección SI (Izquierda) */}
         <div className="hidden lg:col-span-3 lg:block">
-          <div className="bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-2xl p-8 h-full flex flex-col border border-gray-100 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-all duration-700" />
+          <div className="bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl p-6 h-full flex flex-col border border-gray-100 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-all duration-700" />
 
             <div className="relative z-10 h-full flex flex-col">
-              <div className="mb-8">
-                <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.25em] mb-3 px-1">Sistemas de Información</h2>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight italic px-1">SI <span className="text-blue-600">Nexus</span></h3>
+              <div className="mb-6">
+                <h2 className="text-[9px] font-black text-blue-600 uppercase tracking-[0.25em] mb-2 px-1">Sistemas de Información</h2>
+                <h3 className="text-xl font-black text-slate-900 tracking-tight italic px-1">SI <span className="text-blue-600">Nexus</span></h3>
               </div>
 
-              <div className="space-y-3 overflow-y-auto max-h-[480px] pr-2 custom-scrollbar flex-1">
+              <div className="space-y-2.5 overflow-y-auto max-h-[440px] pr-2 custom-scrollbar flex-1 pb-4">
                 {SIA_SYSTEMS.map((sia) => (
                   <button
                     key={sia.name}
                     onClick={() => handleQuickAccess(sia.email, sia.pass)}
-                    className="w-full text-left p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all group/item active:scale-[0.98]"
+                    className="w-full text-left p-3.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all group/item active:scale-[0.98]"
                   >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest">{sia.name}</span>
-                      <div className={`w-1.5 h-1.5 rounded-full bg-${sia.color}-500 shadow-sm`} />
+                    <div className="flex items-center justify-between mb-0.5">
+                      <span className="text-[9px] font-black text-blue-500 uppercase tracking-widest">{sia.name}</span>
+                      <div className={`w-1 h-1 rounded-full bg-${sia.color}-500 shadow-sm`} />
                     </div>
-                    <p className="text-sm font-black text-slate-800 group-hover/item:text-blue-700 transition-colors uppercase italic">{sia.role}</p>
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight truncate">{sia.fullName}</p>
+                    <p className="text-xs font-black text-slate-800 group-hover/item:text-blue-700 transition-colors uppercase italic">{sia.role}</p>
+                    <p className="text-[8px] font-bold text-slate-400 uppercase tracking-tight truncate">{sia.fullName}</p>
                   </button>
                 ))}
               </div>
 
-              <div className="mt-8 p-5 bg-blue-50/50 rounded-2xl border border-blue-100/50">
-                <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest leading-relaxed italic">
-                  Núcleo ERP Integrado • Visualización de Sistemas Aplicados por Proceso Organizacional.
+              <div className="mt-4 p-4 bg-blue-50/50 rounded-xl border border-blue-100/50">
+                <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest leading-relaxed italic">
+                  Núcleo ERP Integrado • 2026
                 </p>
               </div>
             </div>
@@ -137,42 +137,42 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         </div>
 
         {/* Sección Login (Centro) */}
-        <div className="w-full lg:col-span-4 flex items-center">
-          <div className="w-full bg-white rounded-[2.5rem] shadow-2xl p-10 md:p-12 border border-gray-100 relative overflow-hidden h-full flex flex-col justify-center">
+        <div className="w-full lg:col-span-4 flex items-center h-full">
+          <div className="w-full bg-white rounded-[2rem] shadow-xl p-8 md:p-10 border border-gray-100 relative overflow-hidden h-full flex flex-col justify-center">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600" />
 
-            <div className="flex justify-center mb-10">
-              <img src={nexusLogo} alt="NEXUS C.A." className="h-24 w-auto object-contain" />
+            <div className="flex justify-center mb-6">
+              <img src={nexusLogo} alt="NEXUS C.A." className="h-20 w-auto object-contain" />
             </div>
 
-            <div className="text-center mb-10">
-              <h1 className="text-3xl font-black text-slate-900 tracking-tight uppercase italic mb-3">Acceso al <span className="text-blue-700">Sistema</span></h1>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Autenticación Segura ERP</p>
+            <div className="text-center mb-8">
+              <h1 className="text-2xl font-black text-slate-900 tracking-tight uppercase italic mb-2">Acceso al <span className="text-blue-700">Sistema</span></h1>
+              <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Autenticación ERP Segura</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="username" className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Credencial de Usuario</Label>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="username" className="text-[9px] font-black uppercase tracking-widest text-slate-500 ml-1">Usuario ERP</Label>
                 <div className="relative">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
-                    <User size={20} />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                    <User size={18} />
                   </div>
                   <Input
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="usuario.erp@nexus.com"
-                    className="pl-14 h-16 bg-slate-50/50 border-slate-100 rounded-2xl font-black text-slate-900 focus:ring-blue-600 transition-all placeholder:text-slate-300"
+                    className="pl-12 h-14 bg-slate-50/50 border-slate-100 rounded-xl font-black text-slate-900 text-sm focus:ring-blue-600 transition-all placeholder:text-slate-300"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Clave de Seguridad</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="password" className="text-[9px] font-black uppercase tracking-widest text-slate-500 ml-1">Pin de Seguridad</Label>
                 <div className="relative">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
-                    <Lock size={20} />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                    <Lock size={18} />
                   </div>
                   <Input
                     id="password"
@@ -180,73 +180,73 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="pl-14 h-16 bg-slate-50/50 border-slate-100 rounded-2xl font-black text-slate-900 focus:ring-blue-600 transition-all placeholder:text-slate-300"
+                    className="pl-12 h-14 bg-slate-50/50 border-slate-100 rounded-xl font-black text-slate-900 text-sm focus:ring-blue-600 transition-all placeholder:text-slate-300"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
               {error && (
-                <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-rose-600 bg-rose-50 p-5 rounded-2xl border border-rose-100 animate-in fade-in slide-in-from-top-1">
-                  <AlertCircle size={18} />
+                <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-rose-600 bg-rose-50 p-4 rounded-xl border border-rose-100 animate-in fade-in slide-in-from-top-1">
+                  <AlertCircle size={16} />
                   <span>{error}</span>
                 </div>
               )}
 
-              <Button type="submit" className="w-full h-16 bg-blue-700 hover:bg-slate-900 text-white font-black text-xs uppercase tracking-[0.3em] rounded-2xl shadow-2xl shadow-blue-100 transition-all active:scale-95 group" disabled={isLoading}>
-                {isLoading ? <Loader2 className="animate-spin" size={20} /> : <span className="flex items-center justify-center gap-2">Iniciar Sesión <div className="w-2 h-2 bg-white rounded-full group-hover:animate-ping" /></span>}
+              <Button type="submit" className="w-full h-14 bg-blue-700 hover:bg-slate-900 text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-xl shadow-lg shadow-blue-100 transition-all active:scale-95 group mt-2" disabled={isLoading}>
+                {isLoading ? <Loader2 className="animate-spin" size={18} /> : <span>Entrar al Portal →</span>}
               </Button>
 
-              <div className="text-center text-[9px] font-black text-slate-300 uppercase tracking-[0.4em] pt-6">
-                Nexus Portal • Integrated Security
+              <div className="text-center text-[8px] font-black text-slate-300 uppercase tracking-[0.4em] pt-4">
+                Nexus Integrated Security
               </div>
             </form>
           </div>
         </div>
 
         {/* Sección Panel Demo (Derecha) */}
-        <div className="w-full lg:col-span-5 flex items-center">
-          <div className="w-full bg-white/60 backdrop-blur-md rounded-[2.5rem] shadow-xl border border-white/50 h-full flex flex-col overflow-hidden max-h-[720px]">
-            <div className="p-10 border-b border-white/50 bg-white/30">
-              <h2 className="text-2xl font-black text-slate-900 flex items-center gap-4 tracking-tight italic uppercase">
-                <div className="w-4 h-4 bg-blue-600 rounded-full animate-pulse shadow-lg shadow-blue-200" />
-                Niveles de Acceso
+        <div className="w-full lg:col-span-5 flex items-stretch">
+          <div className="w-full bg-white/60 backdrop-blur-md rounded-[2rem] shadow-xl border border-white/50 h-full flex flex-col overflow-hidden max-h-[660px]">
+            <div className="p-8 border-b border-white/50 bg-white/30">
+              <h2 className="text-xl font-black text-slate-900 flex items-center gap-3 tracking-tight italic uppercase">
+                <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse shadow-md shadow-blue-200" />
+                Niveles
               </h2>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mt-3 px-1">
-                Estructura Organizacional ERP Nexus
+              <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mt-2 px-1">
+                Jerarquía Organizacional ERP
               </p>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-8 scrollbar-thin scrollbar-thumb-slate-200">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex-1 overflow-y-auto p-6 scrollbar-thin scrollbar-thumb-slate-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {DEMO_USERS.map((user) => (
                   <button
                     key={user.email}
                     onClick={() => handleQuickAccess(user.email, user.pass)}
-                    className="flex flex-col text-left p-6 rounded-[2rem] border border-transparent bg-white/80 hover:border-blue-100 hover:shadow-2xl hover:shadow-blue-50/50 transition-all group relative overflow-hidden active:scale-[0.98]"
+                    className="flex flex-col text-left p-4 rounded-[1.5rem] border border-transparent bg-white/80 hover:border-blue-100 hover:shadow-xl hover:shadow-blue-50/20 transition-all group relative overflow-hidden active:scale-[0.98]"
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <span className={`text-[8px] font-black px-3 py-1.5 rounded-xl uppercase tracking-widest ${user.level === 'Estratégico' ? 'bg-indigo-50 text-indigo-600' :
+                    <div className="flex items-center justify-between mb-2">
+                      <span className={`text-[7px] font-black px-2.5 py-1.5 rounded-lg uppercase tracking-widest ${user.level === 'Estratégico' ? 'bg-indigo-50 text-indigo-600' :
                           user.level === 'Táctico' ? 'bg-blue-50 text-blue-600' :
                             'bg-slate-50 text-slate-600'
                         }`}>
                         {user.level}
                       </span>
-                      <span className="text-[10px] text-slate-300 group-hover:text-blue-500 font-black">
+                      <span className="text-[9px] text-slate-300 group-hover:text-blue-500 font-black">
                         {user.pass}
                       </span>
                     </div>
-                    <span className="text-base font-black text-slate-900 group-hover:text-blue-800 truncate uppercase tracking-tight line-clamp-1 italic">
+                    <span className="text-sm font-black text-slate-900 group-hover:text-blue-800 truncate uppercase tracking-tight line-clamp-1 italic">
                       {user.label}
                     </span>
-                    <span className="text-[10px] font-black text-slate-400 truncate mt-2">{user.email}</span>
+                    <span className="text-[9px] font-black text-slate-400 truncate mt-1">{user.email}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="p-6 bg-slate-50 text-slate-400 text-[10px] font-black text-center uppercase tracking-[0.3em] border-t border-slate-100">
-              Entorno Nexus ERP v2.4.0 • 2026
+            <div className="p-4 bg-slate-50 text-slate-400 text-[9px] font-black text-center uppercase tracking-[0.3em] border-t border-slate-100 mt-auto">
+              v2.4.0 • 2026
             </div>
           </div>
         </div>
