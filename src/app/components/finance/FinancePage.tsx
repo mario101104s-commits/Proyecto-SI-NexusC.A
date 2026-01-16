@@ -10,7 +10,7 @@ import { FinanceReports } from './FinanceReports';
 
 type FinanceTab = 'invoices' | 'payments' | 'reports';
 
-export function FinancePage() {
+export function FinancePage({ readOnly = false }: { readOnly?: boolean }) {
     const [activeTab, setActiveTab] = useState<FinanceTab>('invoices');
     const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false);
 
@@ -19,80 +19,90 @@ export function FinancePage() {
     }
 
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="space-y-10 animate-in fade-in duration-500">
+            {/* Header section with executive style */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-2xl font-semibold text-gray-800">Finanzas y Facturación</h1>
-                    <p className="text-sm text-gray-500 mt-1">
-                        Gestión de ingresos, egresos y facturación electrónica
-                    </p>
+                    <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest mb-2">Módulo Financiero</h2>
+                    <h1 className="text-4xl font-black text-gray-900 tracking-tight">Finanzas y Facturación</h1>
+                    <p className="text-gray-500 font-medium mt-2">Gestión integral de ingresos, egresos y cumplimiento fiscal.</p>
                 </div>
 
-                <Button
-                    className="bg-blue-800 hover:bg-blue-900 text-white shadow-md"
-                    onClick={() => setIsGeneratingInvoice(true)}
-                >
-                    <Plus size={18} className="mr-2" />
-                    Generar Factura
-                </Button>
+                {!readOnly && (
+                    <Button
+                        className="bg-slate-900 hover:bg-black text-white px-8 py-6 rounded-2xl shadow-xl shadow-gray-200 transition-all hover:-translate-y-1 font-bold"
+                        onClick={() => setIsGeneratingInvoice(true)}
+                    >
+                        <Plus size={20} className="mr-2" />
+                        Generar Factura Nueva
+                    </Button>
+                )}
             </div>
 
-            {/* Summary Cards */}
+            {/* Summary Section - Upgraded to Executive Cards */}
             <FinancialSummary stats={MOCK_STATS} />
 
-            {/* Tabs Navigation */}
-            <div className="flex border-b border-gray-200 mb-6">
+            {/* Tabs Navigation - Premium Style */}
+            <div className="flex bg-white p-2 rounded-[2rem] shadow-sm border border-gray-100 w-fit">
                 <button
                     onClick={() => setActiveTab('invoices')}
-                    className={`flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'invoices'
-                        ? 'border-blue-800 text-blue-800'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    className={`flex items-center gap-2 px-8 py-3 rounded-2xl text-sm font-black transition-all ${activeTab === 'invoices'
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
+                        : 'text-gray-400 hover:text-gray-600'
                         }`}
                 >
                     <FileText size={18} />
-                    Facturas
+                    Control de Facturas
                 </button>
                 <button
                     onClick={() => setActiveTab('payments')}
-                    className={`flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'payments'
-                        ? 'border-blue-800 text-blue-800'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    className={`flex items-center gap-2 px-8 py-3 rounded-2xl text-sm font-black transition-all ${activeTab === 'payments'
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
+                        : 'text-gray-400 hover:text-gray-600'
                         }`}
                 >
                     <CreditCard size={18} />
-                    Pagos
+                    Gestión de Pagos
                 </button>
                 <button
                     onClick={() => setActiveTab('reports')}
-                    className={`flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'reports'
-                        ? 'border-blue-800 text-blue-800'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    className={`flex items-center gap-2 px-8 py-3 rounded-2xl text-sm font-black transition-all ${activeTab === 'reports'
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
+                        : 'text-gray-400 hover:text-gray-600'
                         }`}
                 >
                     <PieChart size={18} />
-                    Reportes
+                    Reportes y Análisis
                 </button>
             </div>
 
-            {/* Tab Content */}
-            <div className="min-h-[400px]">
+            {/* Tab Content Area */}
+            <div className="min-h-[500px]">
                 {activeTab === 'invoices' && (
-                    <div className="animate-in fade-in duration-300">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-lg font-semibold text-gray-700">Facturas Recientes</h2>
-                            <Button variant="outline" size="sm">Filtrar por Fecha</Button>
+                    <div className="animate-in fade-in slide-in-from-bottom-2 duration-500 space-y-6">
+                        <div className="flex justify-between items-center px-4">
+                            <h2 className="text-2xl font-black text-gray-800 tracking-tight">Registro de Facturas</h2>
+                            <div className="flex gap-2">
+                                <Button variant="outline" className="rounded-xl font-bold border-gray-200">Exportar Excel</Button>
+                                <Button variant="outline" className="rounded-xl font-bold border-gray-200">Filtros Avanzados</Button>
+                            </div>
                         </div>
-                        <InvoicesTable invoices={MOCK_INVOICES} />
+                        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 overflow-hidden">
+                            <InvoicesTable invoices={MOCK_INVOICES} />
+                        </div>
                     </div>
                 )}
 
                 {activeTab === 'payments' && (
-                    <PaymentsList payments={MOCK_PAYMENTS} />
+                    <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <PaymentsList payments={MOCK_PAYMENTS} />
+                    </div>
                 )}
 
                 {activeTab === 'reports' && (
-                    <FinanceReports />
+                    <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <FinanceReports />
+                    </div>
                 )}
             </div>
         </div>

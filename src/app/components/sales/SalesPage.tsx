@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Plus, FileText, ShoppingCart, X } from 'lucide-react';
+import { Search, Plus, FileText, TrendingUp, Users } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 import { MOCK_CLIENTS, MOCK_QUOTATIONS, Client, Quotation } from './types';
@@ -7,7 +7,7 @@ import { ClientsTable } from './ClientsTable';
 import { QuotationsSection } from './QuotationsSection';
 import { ClientPreview } from './ClientPreview';
 
-export function SalesPage() {
+export function SalesPage({ readOnly = false }: { readOnly?: boolean }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [clients] = useState<Client[]>(MOCK_CLIENTS);
@@ -29,70 +29,61 @@ export function SalesPage() {
     alert('Funcionalidad de Nueva Cotización en desarrollo');
   };
 
-  const handleNewOrder = () => {
-    alert('Funcionalidad de Generar Pedido en desarrollo');
-  };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div className="space-y-10 animate-in fade-in duration-500">
+      {/* Header section with executive style */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-800">Gestión de Ventas y CRM</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Administra clientes, cotizaciones y pedidos
-          </p>
+          <h2 className="text-sm font-black text-emerald-600 uppercase tracking-widest mb-2">Comercial & CRM</h2>
+          <h1 className="text-4xl font-black text-gray-900 tracking-tight">Ventas y Clientes</h1>
+          <p className="text-gray-500 font-medium mt-2">Gestión estratégica de oportunidades, cotizaciones y relaciones comerciales.</p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-2">
-          <Button
-            onClick={handleNewClient}
-            className="bg-blue-800 hover:bg-blue-900 text-white shadow-md"
-          >
-            <Plus size={18} className="mr-2" />
-            Nuevo Cliente
-          </Button>
-          <Button
-            onClick={handleNewQuotation}
-            className="bg-green-700 hover:bg-green-800 text-white shadow-md"
-          >
-            <FileText size={18} className="mr-2" />
-            Nueva Cotización
-          </Button>
-          <Button
-            onClick={handleNewOrder}
-            className="bg-purple-700 hover:bg-purple-800 text-white shadow-md"
-          >
-            <ShoppingCart size={18} className="mr-2" />
-            Generar Pedido
-          </Button>
-        </div>
+        {!readOnly && (
+          <div className="flex flex-wrap gap-3">
+            <Button
+              onClick={handleNewClient}
+              className="bg-slate-900 hover:bg-black text-white px-6 py-6 rounded-2xl shadow-xl shadow-gray-200 transition-all hover:-translate-y-1 font-bold"
+            >
+              <Plus size={18} className="mr-2" />
+              Nuevo Cliente
+            </Button>
+            <Button
+              onClick={handleNewQuotation}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-6 rounded-2xl shadow-xl shadow-emerald-100 transition-all hover:-translate-y-1 font-bold"
+            >
+              <FileText size={18} className="mr-2" />
+              Cotización
+            </Button>
+          </div>
+        )}
       </div>
 
-      {/* Search Bar */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4">
+      {/* Search Bar - Upgraded to Premium */}
+      <div className="bg-white rounded-[2rem] shadow-xl shadow-gray-100 border border-gray-50 p-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300" size={24} />
           <Input
             type="text"
-            placeholder="Buscar por nombre, teléfono, email o empresa..."
+            placeholder="Buscar en el ecosistema de clientes (nombre, empresa, email)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12 bg-gray-50 border-gray-200"
+            className="pl-14 h-16 bg-gray-50/50 border-none rounded-2xl text-lg font-medium focus-visible:ring-2 focus-visible:ring-blue-500/20"
           />
         </div>
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Left Column - Clients Table and Quotations */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-10">
           {/* Clients Table */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              Clientes Recientes ({filteredClients.length})
-            </h2>
+          <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 p-8">
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-xl font-black text-gray-800 tracking-tight">Cartera de Clientes</h3>
+              <span className="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-black uppercase tracking-widest">{filteredClients.length} activos</span>
+            </div>
             <ClientsTable
               clients={filteredClients}
               onSelectClient={setSelectedClient}
@@ -101,10 +92,11 @@ export function SalesPage() {
           </div>
 
           {/* Quotations Section */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              Cotizaciones Pendientes ({quotations.filter(q => q.status === 'pending' || q.status === 'sent').length})
-            </h2>
+          <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 p-8">
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-xl font-black text-gray-800 tracking-tight">Propuestas en Curso</h3>
+              <TrendingUp className="text-emerald-500" size={20} />
+            </div>
             <QuotationsSection quotations={quotations} />
           </div>
         </div>
@@ -112,14 +104,19 @@ export function SalesPage() {
         {/* Right Column - Client Preview */}
         <div className="lg:col-span-1">
           {selectedClient ? (
-            <ClientPreview
-              client={selectedClient}
-              onClose={() => setSelectedClient(null)}
-            />
+            <div className="sticky top-28">
+              <ClientPreview
+                client={selectedClient}
+                onClose={() => setSelectedClient(null)}
+              />
+            </div>
           ) : (
-            <div className="bg-gray-50 rounded-xl border border-gray-200 p-6 text-center">
-              <p className="text-gray-500 text-sm">
-                Selecciona un cliente para ver su perfil
+            <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2.5rem] p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-slate-300 mb-6">
+                <Users size={32} />
+              </div>
+              <p className="text-slate-500 font-bold max-w-[200px]">
+                Seleccione un perfil de cliente para visualizar el expediente completo
               </p>
             </div>
           )}

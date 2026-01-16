@@ -25,21 +25,57 @@ export const getPermissions = (email: string) => {
     const user = USERS_REGISTRY[email];
     if (!user) return [];
 
-    // Permisos Estratégicos (Director y Gerente General compartida)
-    if (user.role === 'strategic') {
+    // Prompt 3: Director
+    if (email === 'director@nexus.com') {
         return ['home', 'executive_reports', 'budget_control', 'corporate_announcements', 'settings'];
     }
 
-    // Táctico ve su área + comunicación + perfil
-    const perms = ['home', 'communication', 'settings'];
+    // Prompt 4: Gerente General
+    if (email === 'gerentegeneral@nexus.com') {
+        return ['home', 'area_reports', 'key_indicators', 'meetings', 'announcements', 'settings', 'sales', 'inventory', 'purchases', 'finance', 'hr'];
+    }
 
-    if (user.department === 'sales') perms.push('sales', 'reports');
-    if (user.department === 'inventory') perms.push('inventory', 'purchases');
-    if (user.department === 'finance') perms.push('finance', 'reports');
-    if (user.department === 'hr') perms.push('hr');
-    if (user.department === 'operations') perms.push('inventory', 'purchases', 'reports');
+    // Prompt 5: Gerente de Operaciones
+    if (email === 'gerente.operaciones@nexus.com') {
+        return ['home', 'inventory', 'warehouses', 'purchases', 'logistics', 'ops_reports', 'settings'];
+    }
 
-    return perms;
+    // Prompt 6: Supervisor de Almacén
+    if (email === 'supervisor.almacen@nexus.com') {
+        return ['home', 'my_warehouse', 'movements', 'reception', 'dispatch', 'adjustments', 'settings'];
+    }
+
+    // Prompt 7: Gerente de Ventas
+    if (email === 'gerente.ventas@nexus.com') {
+        return ['home', 'customers', 'quotes', 'orders', 'catalog', 'sales_reports', 'sales_team', 'inventory_query', 'settings'];
+    }
+
+    // Prompt 8: Gerente de Finanzas
+    if (email === 'gerente.finanzas@nexus.com') {
+        return ['home', 'billing', 'accounts_receivable', 'accounts_payable', 'budget', 'fin_reports', 'reconciliations', 'settings'];
+    }
+
+    // Prompt 9: Gerente de RRHH
+    if (email === 'gerente.rrhh@nexus.com') {
+        return ['home', 'employees', 'attendance', 'payroll', 'evaluations', 'training', 'knowledge_base', 'settings'];
+    }
+
+    // Prompt 10: Vendedor
+    if (email === 'vendedor@nexus.com') {
+        return ['home', 'my_customers', 'my_quotes', 'my_orders', 'catalog', 'my_performance', 'inventory_query', 'settings'];
+    }
+
+    // Prompt 11: Asistente
+    if (email === 'asistente@nexus.com') {
+        return ['home', 'calendar', 'documents', 'communication', 'tasks', 'settings'];
+    }
+
+    // Prompt 12: Trabajador
+    if (email === 'trabajador@nexus.com') {
+        return ['home', 'my_tasks', 'attendance', 'announcements', 'personal_docs', 'settings'];
+    }
+
+    return ['home', 'settings'];
 };
 
 export const getUserData = (email: string): UserAuth | null => {
