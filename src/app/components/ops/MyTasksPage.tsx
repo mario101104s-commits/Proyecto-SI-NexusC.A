@@ -1,4 +1,4 @@
-import { Zap, Clock, ShieldCheck, CheckCircle2, MapPin, ChevronRight, Filter, Search } from 'lucide-react';
+import { Zap, Clock, ShieldCheck, CheckCircle2, MapPin, Search } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 
 export function MyTasksPage() {
