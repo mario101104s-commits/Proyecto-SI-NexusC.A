@@ -1,6 +1,6 @@
 import { Package, Download, Upload, CheckCircle2, AlertTriangle, Truck, History, ChevronRight, ArrowRight } from 'lucide-react';
 
-export function WarehouseSupervisorDashboard() {
+export function WarehouseSupervisorDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Action-Oriented Header */}
@@ -10,10 +10,16 @@ export function WarehouseSupervisorDashboard() {
                     <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1">Sede Principal - Control de Inventario</p>
                 </div>
                 <div className="flex gap-4">
-                    <button className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all flex items-center gap-3 active:scale-95">
+                    <button
+                        onClick={() => onNavigate?.('reception')}
+                        className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all flex items-center gap-3 active:scale-95"
+                    >
                         <Upload size={18} /> Registrar Recepción
                     </button>
-                    <button className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex items-center gap-3 active:scale-95">
+                    <button
+                        onClick={() => onNavigate?.('dispatch')}
+                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex items-center gap-3 active:scale-95"
+                    >
                         <Download size={18} /> Registrar Despacho
                     </button>
                 </div>
@@ -29,6 +35,7 @@ export function WarehouseSupervisorDashboard() {
                     icon={<Package size={24} />}
                     color="blue"
                     progress={72}
+                    onClick={() => onNavigate?.('my_warehouse')}
                 />
                 <SuperStatCard
                     title="Pendiente Recepción"
@@ -38,6 +45,7 @@ export function WarehouseSupervisorDashboard() {
                     icon={<Truck size={24} />}
                     color="amber"
                     progress={40}
+                    onClick={() => onNavigate?.('reception')}
                 />
                 <SuperStatCard
                     title="Picking en Turno"
@@ -47,6 +55,7 @@ export function WarehouseSupervisorDashboard() {
                     icon={<CheckCircle2 size={24} />}
                     color="emerald"
                     progress={65}
+                    onClick={() => onNavigate?.('dispatch')}
                 />
             </div>
 
@@ -57,7 +66,12 @@ export function WarehouseSupervisorDashboard() {
                         <h3 className="text-xl font-black text-gray-800 tracking-tight flex items-center gap-3">
                             <History className="text-blue-600" size={24} /> Log de Movimientos
                         </h3>
-                        <button className="text-xs font-black text-gray-400 uppercase tracking-widest hover:text-blue-600 transition-all">Ver Historial Completo</button>
+                        <button
+                            onClick={() => onNavigate?.('movements')}
+                            className="text-xs font-black text-gray-400 uppercase tracking-widest hover:text-blue-600 transition-all"
+                        >
+                            Ver Historial Completo
+                        </button>
                     </div>
 
                     <div className="space-y-4">
@@ -83,7 +97,10 @@ export function WarehouseSupervisorDashboard() {
                         <CriticalStockItem name="Pastillas de Freno Ranger" stock="5" target="25" />
                     </div>
 
-                    <button className="w-full py-4 bg-white text-slate-900 rounded-2xl font-black text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2 group active:scale-95 leading-none">
+                    <button
+                        onClick={() => onNavigate?.('dispatch')}
+                        className="w-full py-4 bg-white text-slate-900 rounded-2xl font-black text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2 group active:scale-95 leading-none"
+                    >
                         Generar Picking List <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 </div>
@@ -92,7 +109,7 @@ export function WarehouseSupervisorDashboard() {
     );
 }
 
-function SuperStatCard({ title, value, unit, sub, icon, color, progress }: any) {
+function SuperStatCard({ title, value, unit, sub, icon, color, progress, onClick }: any) {
     const borders: any = {
         blue: 'border-blue-100',
         amber: 'border-amber-100',
@@ -105,7 +122,10 @@ function SuperStatCard({ title, value, unit, sub, icon, color, progress }: any) 
     };
 
     return (
-        <div className={`bg-white p-8 rounded-[2.25rem] border ${borders[color]} shadow-lg shadow-gray-50 group hover:-translate-y-2 transition-all duration-500`}>
+        <div
+            onClick={onClick}
+            className={`bg-white p-8 rounded-[2.25rem] border ${borders[color]} shadow-lg shadow-gray-50 group hover:-translate-y-2 transition-all duration-500 cursor-pointer`}
+        >
             <div className={`w-14 h-14 rounded-2xl ${iconBgs[color]} flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform`}>{icon}</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{title}</p>
             <div className="flex items-baseline gap-2">

@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Package, Clock, RefreshCw, Truck, MapPin, Calendar, ChevronRight, BarChart3, ArrowRight } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { OpsDetailModal } from './OpsDetailModal';
 
 const WAREHOUSE_STATUS_DATA = [
     { id: 1, name: 'Valencia (Principal)', status: 'Operativo', capacity: 85, orders: 12, code: 'VAL-01' },
@@ -13,11 +15,19 @@ const OPS_KPI_DATA = [
     { name: 'Stock Maracaibo', value: 310, color: '#ef4444' },
 ];
 
-export function OperationsDashboard() {
+export function OperationsDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const [selectedDetail, setSelectedDetail] = useState<any>(null);
 
     return (
-        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
+            {/* Ops Detail Modal */}
+            <OpsDetailModal
+                isOpen={!!selectedDetail}
+                onClose={() => setSelectedDetail(null)}
+                data={selectedDetail}
+            />
+
             {/* Logistics Command Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
@@ -29,8 +39,8 @@ export function OperationsDashboard() {
                     </p>
                 </div>
                 <div className="flex bg-white p-2 rounded-2xl border border-gray-100 shadow-sm">
-                    <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-blue-100">Regional</button>
-                    <button className="px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600">Nacional</button>
+                    <button className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-blue-100 hover:-translate-y-1 transition-all">Regional</button>
+                    <button className="px-8 py-3 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600 transition-all">Nacional</button>
                 </div>
             </div>
 
@@ -43,6 +53,7 @@ export function OperationsDashboard() {
                     trend="-2.5%"
                     icon={<Package size={24} />}
                     color="blue"
+                    onClick={() => onNavigate?.('ops_reports')}
                 />
                 <OpsCard
                     title="Entregas a Tiempo"
@@ -51,6 +62,7 @@ export function OperationsDashboard() {
                     trend="+1.2%"
                     icon={<Clock size={24} />}
                     color="emerald"
+                    onClick={() => onNavigate?.('logistics')}
                 />
                 <OpsCard
                     title="Rotación Stock"
@@ -59,6 +71,7 @@ export function OperationsDashboard() {
                     trend="+0.8"
                     icon={<RefreshCw size={24} />}
                     color="purple"
+                    onClick={() => onNavigate?.('ops_reports')}
                 />
                 <OpsCard
                     title="Pedidos en Ruta"
@@ -67,6 +80,7 @@ export function OperationsDashboard() {
                     trend="Estable"
                     icon={<Truck size={24} />}
                     color="amber"
+                    onClick={() => onNavigate?.('logistics')}
                 />
             </div>
 
@@ -78,7 +92,12 @@ export function OperationsDashboard() {
                             <h3 className="text-xl font-black text-gray-800 tracking-tight">Estado de Almacenes</h3>
                             <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1">Monitoreo de Capacidad en Tiempo Real</p>
                         </div>
-                        <button className="px-5 py-2 bg-blue-50 text-blue-600 rounded-xl font-bold text-xs hover:bg-blue-600 hover:text-white transition-all">Mapa Global</button>
+                        <button
+                            onClick={() => onNavigate?.('warehouses')}
+                            className="px-5 py-2 bg-blue-50 text-blue-600 rounded-xl font-bold text-xs hover:bg-blue-600 hover:text-white transition-all"
+                        >
+                            Ver Todos
+                        </button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
@@ -93,7 +112,12 @@ export function OperationsDashboard() {
                             </thead>
                             <tbody className="divide-y divide-gray-50">
                                 {WAREHOUSE_STATUS_DATA.map((wh) => (
-                                    <tr key={wh.id} className="hover:bg-gray-50/50 transition-colors group">
+                                    <tr key={wh.id} className="hover:bg-gray-50/50 transition-colors group cursor-pointer" onClick={() => setSelectedDetail({
+                                        title: wh.name,
+                                        type: 'warehouse',
+                                        status: wh.status,
+                                        details: `El almacén ${wh.name} (${wh.code}) registra una carga operativa del ${wh.capacity}%. Actualmente gestiona ${wh.orders} despachos simultáneos.`
+                                    })}>
                                         <td className="px-8 py-6">
                                             <div className="flex items-center gap-4">
                                                 <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:scale-110 transition-transform">
@@ -136,12 +160,15 @@ export function OperationsDashboard() {
 
                 {/* Logistics & Inventory Chart side-section */}
                 <div className="space-y-10">
-                    <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 h-full">
+                    <div
+                        className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 h-fit cursor-pointer group hover:shadow-2xl transition-all"
+                        onClick={() => onNavigate?.('ops_reports')}
+                    >
                         <div className="flex items-center justify-between mb-8">
-                            <h3 className="text-xl font-black text-gray-800 tracking-tight">Stock Regional</h3>
+                            <h3 className="text-xl font-black text-gray-800 tracking-tight group-hover:text-blue-600 transition-colors">Stock Regional</h3>
                             <BarChart3 className="text-gray-400" size={20} />
                         </div>
-                        <div className="h-[280px]">
+                        <div className="h-[200px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={OPS_KPI_DATA}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -159,14 +186,6 @@ export function OperationsDashboard() {
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
-                        <div className="mt-8 grid grid-cols-2 gap-4">
-                            {OPS_KPI_DATA.map((item, idx) => (
-                                <div key={idx} className="flex items-center gap-2 p-3 bg-gray-50 rounded-2xl">
-                                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
-                                    <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">{item.name.split(' ')[1]}</span>
-                                </div>
-                            ))}
-                        </div>
                     </div>
 
                     <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-blue-900/20 text-white relative overflow-hidden">
@@ -175,7 +194,15 @@ export function OperationsDashboard() {
                             <span className="w-2 h-6 bg-blue-500 rounded-full" /> Rutas Críticas
                         </h3>
                         <div className="space-y-4">
-                            <RouteItem from="VAL" to="CCS" status="Retraso" bg="bg-rose-500" />
+                            <RouteItem
+                                from="VAL" to="CCS" status="Retraso" bg="bg-rose-500"
+                                onClick={() => setSelectedDetail({
+                                    title: "Ruta VAL -> CCS",
+                                    type: 'route',
+                                    status: 'Retraso Crítico',
+                                    details: "Se reporta obstrucción en la ARC. La unidad de transporte registra un retraso estimado de 45 minutos para la entrega en el centro de distribución Caracas."
+                                })}
+                            />
                             <RouteItem from="MAR" to="VAL" status="En Ruta" bg="bg-emerald-500" />
                             <RouteItem from="VAL" to="PLC" status="En Ruta" bg="bg-emerald-500" />
                         </div>
@@ -186,7 +213,7 @@ export function OperationsDashboard() {
     );
 }
 
-function OpsCard({ title, value, unit, trend, icon, color }: any) {
+function OpsCard({ title, value, unit, trend, icon, color, onClick }: any) {
     const colors: any = {
         blue: 'text-blue-600 bg-blue-50 shadow-blue-100',
         emerald: 'text-emerald-600 bg-emerald-50 shadow-emerald-100',
@@ -195,7 +222,10 @@ function OpsCard({ title, value, unit, trend, icon, color }: any) {
     };
 
     return (
-        <div className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500">
+        <div
+            onClick={onClick}
+            className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+        >
             <div className={`w-14 h-14 rounded-2xl ${colors[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:scale-110 duration-500`}>
                 {icon}
             </div>
@@ -211,9 +241,12 @@ function OpsCard({ title, value, unit, trend, icon, color }: any) {
     );
 }
 
-function RouteItem({ from, to, status, bg }: any) {
+function RouteItem({ from, to, status, bg, onClick }: any) {
     return (
-        <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all group">
+        <div
+            onClick={onClick}
+            className="flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all group cursor-pointer"
+        >
             <div className="flex items-center gap-4">
                 <span className="text-xs font-black tracking-widest text-blue-400">{from}</span>
                 <ArrowRight size={14} className="text-gray-600" />

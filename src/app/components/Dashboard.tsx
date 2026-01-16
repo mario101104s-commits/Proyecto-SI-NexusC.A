@@ -66,6 +66,11 @@ import { LogisticsPage } from '@/app/components/ops/LogisticsPage';
 import { OpsReportsPage } from '@/app/components/ops/OpsReportsPage';
 
 import { WarehouseSupervisorDashboard } from '@/app/components/ops/WarehouseSupervisorDashboard';
+import { MyWarehousePage } from '@/app/components/ops/MyWarehousePage';
+import { MovementHistoryPage } from '@/app/components/ops/MovementHistoryPage';
+import { ReceptionPage } from '@/app/components/ops/ReceptionPage';
+import { DispatchPage } from '@/app/components/ops/DispatchPage';
+import { InventoryAdjustmentsPage } from '@/app/components/ops/InventoryAdjustmentsPage';
 import { SalesManagerDashboard } from '@/app/components/sales/SalesManagerDashboard';
 import { FinanceManagerDashboard } from '@/app/components/finance/FinanceManagerDashboard';
 import { HRManagerDashboard } from '@/app/components/hr/HRManagerDashboard';
@@ -233,8 +238,8 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     if (activeMenu === 'home') {
       if (userData?.email === 'director@nexus.com') return <StrategicDashboard onNavigate={setActiveMenu} />;
       if (userData?.email === 'gerentegeneral@nexus.com') return <GeneralManagerDashboard onNavigate={setActiveMenu} />;
-      if (userData?.email === 'gerente.operaciones@nexus.com') return <OperationsDashboard />;
-      if (userData?.email === 'supervisor.almacen@nexus.com') return <WarehouseSupervisorDashboard />;
+      if (userData?.email === 'gerente.operaciones@nexus.com') return <OperationsDashboard onNavigate={setActiveMenu} />;
+      if (userData?.email === 'supervisor.almacen@nexus.com') return <WarehouseSupervisorDashboard onNavigate={setActiveMenu} />;
       if (userData?.email === 'gerente.ventas@nexus.com') return <SalesManagerDashboard />;
       if (userData?.email === 'gerente.finanzas@nexus.com') return <FinanceManagerDashboard />;
       if (userData?.email === 'gerente.rrhh@nexus.com') return <HRManagerDashboard />;
@@ -281,6 +286,13 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'warehouses': return <WarehousesPage />;
       case 'logistics': return <LogisticsPage />;
       case 'ops_reports': return <OpsReportsPage />;
+
+      // Almacen Supervisor Suite
+      case 'my_warehouse': return <MyWarehousePage />;
+      case 'movements': return <MovementHistoryPage />;
+      case 'reception': return <ReceptionPage />;
+      case 'dispatch': return <DispatchPage />;
+      case 'adjustments': return <InventoryAdjustmentsPage />;
 
       default: return <ModulePlaceholder title={getPageTitle()} />;
     }
