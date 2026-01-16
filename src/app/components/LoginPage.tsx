@@ -98,16 +98,16 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" />
       </div>
 
-      <div className="relative w-full max-w-[90rem] grid grid-cols-1 lg:grid-cols-12 gap-8 items-start justify-center">
-        {/* Sección SIA (Izquierda) */}
+      <div className="relative w-full max-w-[95rem] grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch justify-center">
+        {/* Sección SI (Izquierda) */}
         <div className="hidden lg:col-span-3 lg:block h-full">
-          <div className="bg-slate-900 rounded-[2rem] shadow-2xl p-6 h-full flex flex-col border border-white/10 relative overflow-hidden group">
+          <div className="bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-2xl p-8 h-full flex flex-col border border-gray-100 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full blur-3xl group-hover:bg-blue-600/20 transition-all duration-700" />
 
             <div className="relative z-10 space-y-6">
               <div>
-                <h2 className="text-xs font-black text-blue-400 uppercase tracking-[0.2em] mb-2 px-1">Sistemas Aplicados</h2>
-                <h3 className="text-xl font-black text-white tracking-tight italic px-1">SIA <span className="text-slate-500">Nexus</span></h3>
+                <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.25em] mb-3 px-1">Sistemas de Información</h2>
+                <h3 className="text-2xl font-black text-slate-900 tracking-tight italic px-1">SI <span className="text-blue-600">Nexus</span></h3>
               </div>
 
               <div className="space-y-3 overflow-y-auto max-h-[500px] pr-2 custom-scrollbar">
@@ -115,21 +115,21 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   <button
                     key={sia.name}
                     onClick={() => handleQuickAccess(sia.email, sia.pass)}
-                    className="w-full text-left p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group/item active:scale-[0.98]"
+                    className="w-full text-left p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all group/item active:scale-[0.98]"
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest">{sia.name}</span>
-                      <div className={`w-1.5 h-1.5 rounded-full bg-${sia.color}-500 shadow-[0_0_8px_rgba(0,0,0,0.5)]`} />
+                      <div className={`w-1.5 h-1.5 rounded-full bg-${sia.color}-500 shadow-sm`} />
                     </div>
-                    <p className="text-sm font-black text-white group-hover/item:text-blue-400 transition-colors">{sia.role}</p>
-                    <p className="text-[9px] font-bold text-slate-500 uppercase tracking-tight truncate">{sia.fullName}</p>
+                    <p className="text-sm font-black text-slate-800 group-hover/item:text-blue-700 transition-colors uppercase italic">{sia.role}</p>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight truncate">{sia.fullName}</p>
                   </button>
                 ))}
               </div>
 
-              <div className="p-4 bg-white/5 rounded-2xl border border-white/5 mt-auto">
-                <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest leading-relaxed">
-                  Basado en la taxonomía de sistemas de información aplicados a procesos corporativos.
+              <div className="p-5 bg-blue-50/50 rounded-2xl border border-blue-100/50 mt-auto">
+                <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest leading-relaxed italic">
+                  Núcleo ERP Integrado • Visualización de Sistemas Aplicados por Proceso Organizacional.
                 </p>
               </div>
             </div>
@@ -137,40 +137,42 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         </div>
 
         {/* Sección Login (Centro) */}
-        <div className="w-full lg:col-span-4 lg:max-w-md mx-auto">
-          <div className="bg-white rounded-[2rem] shadow-2xl p-8 md:p-10 border border-gray-100 h-full flex flex-col justify-center">
-            <div className="flex justify-center mb-6">
-              <img src={nexusLogo} alt="NEXUS C.A." className="h-20 w-auto object-contain" />
+        <div className="w-full lg:col-span-4 flex items-center">
+          <div className="w-full bg-white rounded-[2.5rem] shadow-2xl p-10 md:p-12 border border-gray-100 relative overflow-hidden h-full flex flex-col justify-center">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600" />
+
+            <div className="flex justify-center mb-10">
+              <img src={nexusLogo} alt="NEXUS C.A." className="h-24 w-auto object-contain" />
             </div>
 
-            <div className="text-center mb-8">
-              <h1 className="text-2xl font-black text-gray-900 tracking-tight uppercase italic mb-2">Acceso al <span className="text-blue-800">Sistema</span></h1>
-              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Ingrese sus credenciales corporativas</p>
+            <div className="text-center mb-10">
+              <h1 className="text-3xl font-black text-slate-900 tracking-tight uppercase italic mb-3">Acceso al <span className="text-blue-700">Sistema</span></h1>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Autenticación Segura ERP</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Correo Electrónico</Label>
+                <Label htmlFor="username" className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Credencial de Usuario</Label>
                 <div className="relative">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                    <User size={18} />
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
+                    <User size={20} />
                   </div>
                   <Input
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="correo@nexus.com"
-                    className="pl-12 h-14 bg-gray-50/50 border-gray-100 rounded-2xl font-bold focus:ring-blue-800 transition-all"
+                    placeholder="usuario.erp@nexus.com"
+                    className="pl-14 h-16 bg-slate-50/50 border-slate-100 rounded-2xl font-black text-slate-900 focus:ring-blue-600 transition-all placeholder:text-slate-300"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Contraseña</Label>
+                <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Clave de Seguridad</Label>
                 <div className="relative">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                    <Lock size={18} />
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
+                    <Lock size={20} />
                   </div>
                   <Input
                     id="password"
@@ -178,25 +180,25 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="pl-12 h-14 bg-gray-50/50 border-gray-100 rounded-2xl font-bold focus:ring-blue-800 transition-all"
+                    className="pl-14 h-16 bg-slate-50/50 border-slate-100 rounded-2xl font-black text-slate-900 focus:ring-blue-600 transition-all placeholder:text-slate-300"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
               {error && (
-                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 p-4 rounded-2xl border border-red-100 animate-in fade-in slide-in-from-top-1">
-                  <AlertCircle size={16} />
+                <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-rose-600 bg-rose-50 p-5 rounded-2xl border border-rose-100 animate-in fade-in slide-in-from-top-1">
+                  <AlertCircle size={18} />
                   <span>{error}</span>
                 </div>
               )}
 
-              <Button type="submit" className="w-full h-14 bg-blue-800 hover:bg-black text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-blue-100 transition-all active:scale-95" disabled={isLoading}>
-                {isLoading ? <Loader2 className="animate-spin" size={18} /> : 'Autenticar →'}
+              <Button type="submit" className="w-full h-16 bg-blue-700 hover:bg-slate-900 text-white font-black text-xs uppercase tracking-[0.3em] rounded-2xl shadow-2xl shadow-blue-100 transition-all active:scale-95 group" disabled={isLoading}>
+                {isLoading ? <Loader2 className="animate-spin" size={20} /> : <span className="flex items-center justify-center gap-2">Iniciar Sesión <div className="w-2 h-2 bg-white rounded-full group-hover:animate-ping" /></span>}
               </Button>
 
-              <div className="text-center text-[9px] font-black text-gray-300 uppercase tracking-widest pt-4">
-                © 2026 NEXUS C.A. • Cyber-Security Active
+              <div className="text-center text-[9px] font-black text-slate-300 uppercase tracking-[0.4em] pt-6">
+                Nexus Portal • Integrated Security
               </div>
             </form>
           </div>
@@ -225,8 +227,8 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className={`text-[8px] font-black px-3 py-1.5 rounded-xl uppercase tracking-widest ${user.level === 'Estratégico' ? 'bg-purple-100 text-purple-700' :
-                          user.level === 'Táctico' ? 'bg-blue-100 text-blue-700' :
-                            'bg-emerald-100 text-emerald-700'
+                        user.level === 'Táctico' ? 'bg-blue-100 text-blue-700' :
+                          'bg-emerald-100 text-emerald-700'
                         }`}>
                         {user.level}
                       </span>
