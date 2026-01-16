@@ -5,13 +5,11 @@ import {
   Package,
   Users,
   BarChart3,
-  Settings,
+  User,
   Menu,
   X,
   Bell,
   LogOut,
-  ChevronLeft,
-  ChevronRight,
   Truck,
   MessageSquare
 } from 'lucide-react';
@@ -25,28 +23,26 @@ import { ReportsPage } from '@/app/components/reports/ReportsPage';
 import { ProfilePage } from '@/app/components/profile/ProfilePage';
 import { DashboardWidgets } from '@/app/components/DashboardWidgets';
 import { SalesChart, AnnouncementsSection } from '@/app/components/DashboardCharts';
+import { AnnouncementsBoard } from '@/app/components/communication/AnnouncementsBoard';
 import { SalesPage } from '@/app/components/sales/SalesPage';
 import nexusLogo from '@/assets/nexus_logo.png';
+import marioProfile from '@/assets/mario_profile.png';
+import { getPermissions, getUserData } from '@/app/lib/auth';
 
 interface DashboardProps {
   username: string;
   onLogout: () => void;
 }
 
-interface MenuItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  active?: boolean;
-}
-
 export function Dashboard({ username, onLogout }: DashboardProps) {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeMenu, setActiveMenu] = useState('home');
-  const [notificationCount] = useState(3);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-  const menuItems: MenuItem[] = [
-    { id: 'home', label: 'Inicio', icon: <Home size={20} />, active: true },
+  const userData = getUserData(username);
+  const permissions = getPermissions(username);
+
+  const menuItems = [
+    { id: 'home', label: 'Inicio', icon: <Home size={20} /> },
     { id: 'sales', label: 'Ventas', icon: <ShoppingCart size={20} /> },
     { id: 'inventory', label: 'Inventario', icon: <Package size={20} /> },
     { id: 'purchases', label: 'Compras', icon: <Truck size={20} /> },
@@ -54,32 +50,21 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     { id: 'hr', label: 'RRHH', icon: <Users size={20} /> },
     { id: 'communication', label: 'Comunicación', icon: <MessageSquare size={20} /> },
     { id: 'reports', label: 'Reportes', icon: <BarChart3 size={20} /> },
-
-    { id: 'settings', label: 'Configuración', icon: <Settings size={20} /> },
-  ];
+    { id: 'settings', label: 'Mi Perfil', icon: <User size={20} /> },
+  ].filter(item => permissions.includes(item.id));
 
   const getPageTitle = () => {
     switch (activeMenu) {
-      case 'home':
-        return 'Dashboard Principal';
-      case 'sales':
-        return 'Gestión de Ventas';
-      case 'inventory':
-        return 'Inventario';
-      case 'purchases':
-        return 'Compras y Proveedores';
-      case 'finance':
-        return 'Finanzas y Facturación';
-      case 'hr':
-        return 'Recursos Humanos';
-      case 'communication':
-        return 'Comunicación y Colaboración';
-      case 'reports':
-        return 'Reportes';
-      case 'settings':
-        return 'Mi Perfil y Configuración';
-      default:
-        return 'Dashboard Principal';
+      case 'home': return 'Panel de Control Principal';
+      case 'sales': return 'Ventas y CRM';
+      case 'inventory': return 'Inventario';
+      case 'purchases': return 'Compras y Proveedores';
+      case 'finance': return 'Finanzas y Facturación';
+      case 'hr': return 'Recursos Humanos';
+      case 'communication': return 'Comunicación y Colaboración';
+      case 'reports': return 'Reportes y Analítica';
+      case 'settings': return 'Mi Perfil y Configuración';
+      default: return 'NEXUS';
     }
   };
 
@@ -87,141 +72,91 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
     switch (activeMenu) {
       case 'home':
         return (
-          <>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-              Bienvenido, {username}
-            </h2>
-
-            {/* Widgets */}
+          <div className="space-y-8 animate-in fade-in duration-500">
             <DashboardWidgets />
-
-            {/* Charts and Announcements */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <SalesChart />
               </div>
-              <div>
+              <div className="lg:col-span-1">
                 <AnnouncementsSection />
               </div>
             </div>
-          </>
+          </div>
         );
-      case 'sales':
-        return <SalesPage />;
-      case 'inventory':
-        return <InventoryPage />;
-      case 'purchases':
-        return <PurchasesPage />;
-      case 'finance':
-        return <FinancePage />;
-      case 'hr':
-        return <HRPage />;
-      case 'communication':
-        return <CommunicationPage />;
-      case 'reports':
-        return <ReportsPage />;
-      case 'settings':
-        return <ProfilePage />;
-      default:
-        return null;
+      case 'sales': return <SalesPage />;
+      case 'inventory': return <InventoryPage />;
+      case 'purchases': return <PurchasesPage />;
+      case 'finance': return <FinancePage />;
+      case 'hr': return <HRPage />;
+      case 'communication': return <CommunicationPage />;
+      case 'reports': return <ReportsPage />;
+      case 'settings': return <ProfilePage />;
+      default: return <div className="p-8 text-center text-gray-500 italic">Módulo restringido.</div>;
     }
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50 flex font-sans">
       {/* Sidebar */}
-      <aside
-        className={`${sidebarCollapsed ? 'w-20' : 'w-64'
-          } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}
-      >
-        {/* Logo Section */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
-          {!sidebarCollapsed && (
-            <img src={nexusLogo} alt="NEXUS" className="h-10 w-auto" />
-          )}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="p-2 hover:bg-gray-100"
-          >
-            {sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-          </Button>
+      <aside className={`${isSidebarCollapsed ? 'w-20' : 'w-64'} bg-blue-900 transition-all duration-300 flex flex-col fixed h-full z-30`}>
+        <div className="p-4 flex items-center justify-between border-b border-blue-800">
+          {!isSidebarCollapsed && <img src={nexusLogo} alt="NEXUS" className="h-10 w-auto invert brightness-0" />}
+          <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className="p-1.5 rounded-lg bg-blue-800 text-blue-100 hover:bg-blue-700 transition-colors">
+            {isSidebarCollapsed ? <Menu size={20} /> : <X size={20} />}
+          </button>
         </div>
 
-        {/* Menu Items */}
-        <nav className="flex-1 py-4 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
           {menuItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveMenu(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${activeMenu === item.id
-                ? 'bg-blue-50 text-blue-800 border-r-4 border-blue-800'
-                : 'text-gray-600 hover:bg-gray-50'
-                }`}
+              className={`w-full flex items-center p-3 rounded-lg transition-all duration-200 group ${activeMenu === item.id ? 'bg-blue-500/20 text-white shadow-lg' : 'text-blue-100/70 hover:bg-blue-800 hover:text-white'}`}
             >
-              <span className="flex-shrink-0">{item.icon}</span>
-              {!sidebarCollapsed && (
-                <span className="text-sm font-medium">{item.label}</span>
-              )}
+              <span className={activeMenu === item.id ? 'text-white' : 'group-hover:text-white'}>{item.icon}</span>
+              {!isSidebarCollapsed && <span className="ml-3 font-medium tracking-wide">{item.label}</span>}
             </button>
           ))}
         </nav>
 
-        {/* Sidebar Footer */}
-        {!sidebarCollapsed && (
-          <div className="p-4 border-t border-gray-200">
-            <p className="text-xs text-gray-500">© 2026 NEXUS C.A.</p>
-          </div>
-        )}
+        <div className="p-4 border-t border-blue-800">
+          <button onClick={onLogout} className="w-full flex items-center p-3 rounded-lg text-red-200 hover:bg-red-500/10 hover:text-red-300 transition-colors">
+            <LogOut size={20} />
+            {!isSidebarCollapsed && <span className="ml-3 font-medium">Cerrar Sesión</span>}
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Navbar */}
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
-          <div className="flex items-center gap-4">
-            <h1 className="text-xl font-semibold text-gray-800">
-              {getPageTitle()}
-            </h1>
-          </div>
+      <div className={`${isSidebarCollapsed ? 'ml-20' : 'ml-64'} flex-1 flex flex-col transition-all duration-300`}>
+        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 sticky top-0 z-20">
+          <h2 className="text-xl font-bold text-gray-800">{getPageTitle()}</h2>
 
-          <div className="flex items-center gap-4">
-            {/* User Name */}
-            <div className="hidden md:flex items-center gap-2 text-sm text-gray-600">
-              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                <span className="text-blue-800 font-semibold">
-                  {username.charAt(0).toUpperCase()}
-                </span>
+          <div className="flex items-center gap-6">
+            <button className="relative p-2 text-gray-400 hover:text-blue-600 rounded-full transition-all">
+              <Bell size={22} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+            </button>
+            <div className="h-8 w-px bg-gray-200" />
+            <div className="flex items-center gap-3">
+              <div className="text-right">
+                <p className="text-sm font-bold text-gray-800">{userData?.name || username}</p>
+                <div className="flex items-center gap-1 justify-end">
+                  <div className={`w-1.5 h-1.5 rounded-full ${userData?.role === 'strategic' ? 'bg-purple-500' : 'bg-blue-500'}`} />
+                  <p className="text-[10px] uppercase font-bold text-gray-400 tracking-tighter">
+                    {userData?.role === 'strategic' ? 'Acceso Total' : userData?.role === 'tactical' ? 'Nivel Táctico' : 'Nivel Operativo'}
+                  </p>
+                </div>
               </div>
-              <span className="font-medium">{username}</span>
+              <div className="w-10 h-10 rounded-xl bg-blue-100 border-2 border-white shadow-sm flex items-center justify-center text-blue-700 font-bold overflow-hidden ring-1 ring-gray-100">
+                <img src={marioProfile} alt="Profile" className="w-full h-full object-cover" />
+              </div>
             </div>
-
-            {/* Notifications */}
-            <Button variant="ghost" size="sm" className="relative p-2">
-              <Bell size={20} className="text-gray-600" />
-              {notificationCount > 0 && (
-                <span className="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  {notificationCount}
-                </span>
-              )}
-            </Button>
-
-            {/* Logout */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onLogout}
-              className="flex items-center gap-2 text-gray-600 hover:text-red-600 hover:bg-red-50"
-            >
-              <LogOut size={18} />
-              <span className="hidden md:inline">Cerrar Sesión</span>
-            </Button>
           </div>
         </header>
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-8">
           <div className="max-w-7xl mx-auto">
             {renderContent()}
           </div>
