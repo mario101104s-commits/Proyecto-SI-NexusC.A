@@ -110,21 +110,22 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 <h3 className="text-xl font-black text-slate-900 tracking-tight italic px-1">SI <span className="text-blue-600">Nexus</span></h3>
               </div>
 
-              <div className="space-y-2.5 overflow-hidden pr-2 flex-1 pb-4">
-                {SIA_SYSTEMS.map((sia) => (
-                  <button
-                    key={sia.name}
-                    onClick={() => handleQuickAccess(sia.email, sia.pass)}
-                    className="w-full text-left p-3.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all group/item active:scale-[0.98]"
-                  >
-                    <div className="flex items-center justify-between mb-0.5">
-                      <span className="text-[9px] font-black text-blue-500 uppercase tracking-widest">{sia.name}</span>
-                      <div className={`w-1 h-1 rounded-full bg-${sia.color}-500 shadow-sm`} />
-                    </div>
-                    <p className="text-xs font-black text-slate-800 group-hover/item:text-blue-700 transition-colors uppercase italic">{sia.role}</p>
-                    <p className="text-[8px] font-bold text-slate-400 uppercase tracking-tight truncate">{sia.fullName}</p>
-                  </button>
-                ))}
+              <div className="overflow-hidden flex-1 pb-4">
+                <div className="grid grid-cols-1 gap-2 h-full">
+                  {SIA_SYSTEMS.map((sia) => (
+                    <button
+                      key={sia.name}
+                      onClick={() => handleQuickAccess(sia.email, sia.pass)}
+                      className="w-full text-left p-2.5 rounded-xl bg-slate-50/50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all group/item active:scale-[0.98] flex flex-col justify-center"
+                    >
+                      <div className="flex items-center justify-between mb-0.5">
+                        <span className="text-[8px] font-black text-blue-500 uppercase tracking-widest">{sia.name}</span>
+                        <div className={`w-1 h-1 rounded-full bg-${sia.color}-500 shadow-sm`} />
+                      </div>
+                      <p className="text-[11px] font-black text-slate-800 group-hover/item:text-blue-700 transition-colors uppercase italic leading-none">{sia.role}</p>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="mt-4 p-4 bg-blue-50/50 rounded-xl border border-blue-100/50">
