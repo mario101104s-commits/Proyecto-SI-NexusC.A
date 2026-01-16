@@ -25,15 +25,9 @@ export const getPermissions = (email: string) => {
     const user = USERS_REGISTRY[email];
     if (!user) return [];
 
-    // Permisos Estratégicos (Director vs Gerente General)
+    // Permisos Estratégicos (Director y Gerente General compartida)
     if (user.role === 'strategic') {
-        if (email === 'director@nexus.com') {
-            return ['home', 'executive_reports', 'budget_control', 'corporate_announcements', 'settings'];
-        }
-        if (email === 'gerentegeneral@nexus.com') {
-            return ['home', 'area_reports', 'key_indicators', 'meetings', 'communication', 'settings', 'sales', 'inventory', 'purchases', 'finance', 'hr'];
-        }
-        return ['home', 'communication', 'settings'];
+        return ['home', 'executive_reports', 'budget_control', 'corporate_announcements', 'settings'];
     }
 
     // Táctico ve su área + comunicación + perfil
