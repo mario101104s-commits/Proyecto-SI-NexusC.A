@@ -81,6 +81,11 @@ import { SalesTeamPage } from '@/app/components/sales/SalesTeamPage';
 import { QuotesPage } from '@/app/components/sales/QuotesPage';
 import { BillingPage } from '@/app/components/finance/BillingPage';
 import { BudgetPage } from '@/app/components/finance/BudgetPage';
+import { EmployeesPage } from '@/app/components/hr/EmployeesPage';
+import { RecruitmentPage } from '@/app/components/hr/RecruitmentPage';
+import { TrainingPage } from '@/app/components/hr/TrainingPage';
+import { MySalesPage } from '@/app/components/sales/MySalesPage';
+import { ClientsPage } from '@/app/components/sales/ClientsPage';
 
 interface DashboardProps {
   username: string;
@@ -298,6 +303,11 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
         return <FinancePage />;
 
       case 'hr': return <HRPage readOnly={isGM} />;
+      case 'employees': return <EmployeesPage />;
+      case 'recruitment': return <RecruitmentPage />;
+      case 'training': return <TrainingPage />;
+      case 'seller_sales': return <MySalesPage />;
+      case 'seller_clients': return <ClientsPage />;
       case 'communication': return <CommunicationPage />;
       case 'reports': return <ReportsPage />;
       case 'settings': return <ProfilePage />;

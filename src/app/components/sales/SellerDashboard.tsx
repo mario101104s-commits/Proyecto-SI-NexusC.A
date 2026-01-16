@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Handshake, FileText, ShoppingBag, Phone, Calendar, PlusCircle, Search, ChevronRight, Clock, Target, Star } from 'lucide-react';
+import { SellerDetailModal } from './SellerDetailModal';
 
 export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const [selectedDetail, setSelectedDetail] = useState<any | null>(null);
 
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -18,10 +21,16 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     </p>
                 </div>
                 <div className="flex gap-4">
-                    <button className="px-6 py-4 bg-emerald-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center gap-3 active:scale-95">
+                    <button
+                        onClick={() => onNavigate?.('orders')}
+                        className="px-6 py-4 bg-emerald-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center gap-3 active:scale-95"
+                    >
                         <PlusCircle size={20} /> Nueva Venta
                     </button>
-                    <button className="px-6 py-4 bg-slate-900 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex items-center gap-3 active:scale-95">
+                    <button
+                        onClick={() => onNavigate?.('catalog')}
+                        className="px-6 py-4 bg-slate-900 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex items-center gap-3 active:scale-95"
+                    >
                         <Search size={20} /> Consultar Stock
                     </button>
                 </div>
@@ -37,6 +46,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     icon={<Target size={24} />}
                     color="emerald"
                     progress={85}
+                    onClick={() => onNavigate?.('sales')}
                 />
                 <SellerStatCard
                     title="Cotiz. Abiertas"
@@ -46,6 +56,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     icon={<FileText size={24} />}
                     color="blue"
                     progress={60}
+                    onClick={() => onNavigate?.('quotes')}
                 />
                 <SellerStatCard
                     title="Cartera Cliente"
@@ -55,6 +66,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     icon={<Handshake size={24} />}
                     color="purple"
                     progress={40}
+                    onClick={() => onNavigate?.('customers')}
                 />
                 <SellerStatCard
                     title="Seguimientos"
@@ -81,10 +93,33 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                     </div>
 
                     <div className="space-y-4 flex-1">
-                        <PremiumScheduleItem time="09:00 AM" customer="Corporación Textil" action="Llamada de Cierre" priority="ALTA" />
-                        <PremiumScheduleItem time="10:30 AM" customer="Panadería El Sol" action="Visita Entrega" priority="MEDIA" />
-                        <PremiumScheduleItem time="02:00 PM" customer="Logística San José" action="Presentación" priority="ALTA" />
-                        <PremiumScheduleItem time="04:30 PM" customer="Taller Los Andes" action="Cobranza" priority="URGENTE" />
+                        <PremiumScheduleItem
+                            time="09:00 AM"
+                            customer="Corporación Textil"
+                            action="Llamada de Cierre"
+                            priority="ALTA"
+                            onClick={() => setSelectedDetail({ type: 'client', name: 'Corporación Textil', label: 'Seguimiento de Cierre' })}
+                        />
+                        <PremiumScheduleItem
+                            time="10:30 AM"
+                            customer="Panadería El Sol"
+                            action="Visita Entrega"
+                            priority="MEDIA"
+                            onClick={() => setSelectedDetail({ type: 'order', id: 'ORD-5542', amount: '$450.00', status: 'En Ruta' })}
+                        />
+                        <PremiumScheduleItem
+                            time="02:00 PM"
+                            customer="Logística San José"
+                            action="Presentación"
+                            priority="ALTA"
+                        />
+                        <PremiumScheduleItem
+                            time="04:30 PM"
+                            customer="Taller Los Andes"
+                            action="Cobranza"
+                            priority="URGENTE"
+                            onClick={() => setSelectedDetail({ type: 'order', id: 'ORD-5510', amount: '$3,200.00', status: 'Vencido' })}
+                        />
                     </div>
                 </div>
 
@@ -103,16 +138,25 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                         <SimpleStockItem name="Bujías Titán X" stock="50" price="$5.50" />
                     </div>
 
-                    <button className="w-full mt-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl hover:bg-black transition-all group flex items-center justify-center gap-2">
+                    <button
+                        onClick={() => onNavigate?.('catalog')}
+                        className="w-full mt-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl hover:bg-black transition-all group flex items-center justify-center gap-2"
+                    >
                         Ver Catálogo Completo <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 </div>
             </div>
+
+            <SellerDetailModal
+                isOpen={!!selectedDetail}
+                onClose={() => setSelectedDetail(null)}
+                data={selectedDetail}
+            />
         </div>
     );
 }
 
-function SellerStatCard({ title, value, unit, sub, icon, color, progress }: any) {
+function SellerStatCard({ title, value, unit, sub, icon, color, progress, onClick }: any) {
     const accents: any = {
         emerald: 'text-emerald-600 bg-emerald-50 shadow-emerald-100',
         blue: 'text-blue-600 bg-blue-50 shadow-blue-100',
@@ -121,7 +165,10 @@ function SellerStatCard({ title, value, unit, sub, icon, color, progress }: any)
     };
 
     return (
-        <div className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-1 transition-all">
+        <div
+            onClick={onClick}
+            className={`bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group transition-all ${onClick ? 'cursor-pointer hover:-translate-y-1' : ''}`}
+        >
             <div className={`w-14 h-14 rounded-2xl ${accents[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:rotate-12`}>
                 {icon}
             </div>
@@ -140,7 +187,7 @@ function SellerStatCard({ title, value, unit, sub, icon, color, progress }: any)
     );
 }
 
-function PremiumScheduleItem({ time, customer, action, priority }: any) {
+function PremiumScheduleItem({ time, customer, action, priority, onClick }: any) {
     const priorities: any = {
         ALTA: 'bg-rose-50 text-rose-600 border-rose-100',
         URGENTE: 'bg-rose-600 text-white border-rose-600 shadow-lg shadow-rose-100',
@@ -148,7 +195,10 @@ function PremiumScheduleItem({ time, customer, action, priority }: any) {
     };
 
     return (
-        <div className="flex items-center gap-6 p-5 rounded-3xl bg-gray-50/50 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-xl hover:shadow-gray-50 transition-all group">
+        <div
+            onClick={onClick}
+            className={`flex items-center gap-6 p-5 rounded-3xl bg-gray-50/50 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-xl hover:shadow-gray-50 transition-all group ${onClick ? 'cursor-pointer' : ''}`}
+        >
             <div className="flex flex-col items-center justify-center min-w-[70px]">
                 <Clock size={16} className="text-gray-400 mb-1" />
                 <span className="text-[10px] font-black text-gray-600 uppercase tracking-tighter">{time}</span>

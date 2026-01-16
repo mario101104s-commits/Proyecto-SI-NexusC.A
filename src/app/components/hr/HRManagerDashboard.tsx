@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Users, UserPlus, GraduationCap, ClipboardCheck, BarChart2, Calendar, ChevronRight, Search, HeartPulse, Sparkles } from 'lucide-react';
+import { HRDetailModal } from './HRDetailModal';
 
 export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string) => void }) {
     const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const [selectedDetail, setSelectedDetail] = useState<any | null>(null);
 
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -18,7 +21,12 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     </p>
                 </div>
                 <div className="flex bg-white p-2 rounded-2xl border border-gray-100 shadow-sm">
-                    <button className="px-6 py-2.5 bg-rose-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-rose-100 transition-all">Plantilla</button>
+                    <button
+                        onClick={() => onNavigate?.('employees')}
+                        className="px-6 py-2.5 bg-rose-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-rose-100 transition-all"
+                    >
+                        Plantilla
+                    </button>
                     <button className="px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600">Reclasificación</button>
                 </div>
             </div>
@@ -31,6 +39,7 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     desc="Activos en Nómina"
                     icon={<Users size={24} />}
                     color="rose"
+                    onClick={() => onNavigate?.('employees')}
                 />
                 <PremiumHRCard
                     title="Índice Retención"
@@ -45,6 +54,7 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     desc="Meta Q1 alcanzada"
                     icon={<ClipboardCheck size={24} />}
                     color="emerald"
+                    onClick={() => setSelectedDetail({ type: 'employee', name: 'Evaluación Trimestral Q1', role: 'Global Dashboard', progress: '78%' })}
                 />
                 <PremiumHRCard
                     title="Vacantes"
@@ -52,6 +62,7 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                     desc="4 URGENTES"
                     icon={<UserPlus size={24} />}
                     color="amber"
+                    onClick={() => onNavigate?.('recruitment')}
                 />
             </div>
 
@@ -83,11 +94,31 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                             <GraduationCap className="text-rose-400" size={22} /> Nexus Academy
                         </h3>
                         <div className="space-y-5">
-                            <AcademyCourseItem title="Inducción Corporativa" participants={45} status="Activo" />
-                            <AcademyCourseItem title="Safety & Compliance" participants={12} status="Completado" />
-                            <AcademyCourseItem title="Leadership Basics" participants={28} status="Programado" />
+                            <AcademyCourseItem
+                                title="Inducción Corporativa"
+                                participants={45}
+                                status="Activo"
+                                onClick={() => setSelectedDetail({ type: 'training', label: 'Inducción Corporativa', progress: '45%' })}
+                            />
+                            <AcademyCourseItem
+                                title="Safety & Compliance"
+                                participants={12}
+                                status="Completado"
+                                onClick={() => setSelectedDetail({ type: 'training', label: 'Safety & Compliance', progress: '100%' })}
+                            />
+                            <AcademyCourseItem
+                                title="Leadership Basics"
+                                participants={28}
+                                status="Programado"
+                                onClick={() => setSelectedDetail({ type: 'training', label: 'Leadership Basics', progress: '0%' })}
+                            />
                         </div>
-                        <button className="w-full mt-8 py-3 bg-white/10 hover:bg-white/20 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all">Ver Malla Curricular</button>
+                        <button
+                            onClick={() => onNavigate?.('training')}
+                            className="w-full mt-8 py-3 bg-white/10 hover:bg-white/20 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all"
+                        >
+                            Ver Malla Curricular
+                        </button>
                     </div>
 
                     <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50">
@@ -95,18 +126,39 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                             Pipeline Selección <Search size={14} className="text-gray-400" />
                         </h4>
                         <div className="space-y-4">
-                            <HiringStage label="Sourcing" count={24} color="bg-blue-100 text-blue-600" />
-                            <HiringStage label="Entrevistas" count={8} color="bg-amber-100 text-amber-600" />
-                            <HiringStage label="Oferta" count={3} color="bg-emerald-100 text-emerald-600" />
+                            <HiringStage
+                                label="Sourcing"
+                                count={24}
+                                color="bg-blue-100 text-blue-600"
+                                onClick={() => onNavigate?.('recruitment')}
+                            />
+                            <HiringStage
+                                label="Entrevistas"
+                                count={8}
+                                color="bg-amber-100 text-amber-600"
+                                onClick={() => setSelectedDetail({ type: 'job', title: 'Entrevistas de Canal', department: 'Operaciones' })}
+                            />
+                            <HiringStage
+                                label="Oferta"
+                                count={3}
+                                color="bg-emerald-100 text-emerald-600"
+                                onClick={() => onNavigate?.('recruitment')}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
+
+            <HRDetailModal
+                isOpen={!!selectedDetail}
+                onClose={() => setSelectedDetail(null)}
+                data={selectedDetail}
+            />
         </div>
     );
 }
 
-function PremiumHRCard({ title, value, desc, icon, color }: any) {
+function PremiumHRCard({ title, value, desc, icon, color, onClick }: any) {
     const accents: any = {
         rose: 'text-rose-600 bg-rose-50 shadow-rose-100',
         blue: 'text-blue-600 bg-blue-50 shadow-blue-100',
@@ -115,7 +167,10 @@ function PremiumHRCard({ title, value, desc, icon, color }: any) {
     };
 
     return (
-        <div className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500">
+        <div
+            onClick={onClick}
+            className={`bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group transition-all duration-500 ${onClick ? 'cursor-pointer hover:-translate-y-2' : ''}`}
+        >
             <div className={`w-14 h-14 rounded-2xl ${accents[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:scale-110 duration-500`}>{icon}</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{title}</p>
             <h3 className="text-4xl font-black text-gray-800 tracking-tighter">{value}</h3>
@@ -144,9 +199,9 @@ function AreaProgressRow({ label, count, progress, color }: any) {
     );
 }
 
-function AcademyCourseItem({ title, participants, status }: any) {
+function AcademyCourseItem({ title, participants, status, onClick }: any) {
     return (
-        <div className="group cursor-pointer">
+        <div className="group cursor-pointer" onClick={onClick}>
             <div className="flex justify-between items-start mb-2">
                 <h4 className="text-xs font-black text-white group-hover:text-rose-400 transition-colors tracking-tight">{title}</h4>
                 <ChevronRight size={14} className="text-gray-600 group-hover:text-rose-400 transition-colors" />
@@ -159,9 +214,12 @@ function AcademyCourseItem({ title, participants, status }: any) {
     );
 }
 
-function HiringStage({ label, count, color }: any) {
+function HiringStage({ label, count, color, onClick }: any) {
     return (
-        <div className="flex items-center justify-between p-3 rounded-2xl bg-gray-50 border border-gray-50 hover:border-gray-100 transition-all">
+        <div
+            onClick={onClick}
+            className={`flex items-center justify-between p-3 rounded-2xl bg-gray-50 border border-gray-50 hover:border-gray-100 transition-all ${onClick ? 'cursor-pointer hover:bg-gray-100' : ''}`}
+        >
             <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">{label}</span>
             <div className={`w-8 h-8 rounded-xl ${color} flex items-center justify-center font-black text-xs`}>
                 {count}
