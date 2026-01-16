@@ -14,7 +14,8 @@ import {
   MessageSquare,
   FileText,
   DollarSign,
-  Megaphone
+  Megaphone,
+  Calendar
 } from 'lucide-react';
 import { InventoryPage } from '@/app/components/inventory/InventoryPage';
 import { PurchasesPage } from '@/app/components/purchases/PurchasesPage';
@@ -35,6 +36,11 @@ import { ExecutiveReportsPage } from '@/app/components/director/ExecutiveReports
 import { BudgetControlPage } from '@/app/components/director/BudgetControlPage';
 import { CorporateAnnouncementsPage } from '@/app/components/director/CorporateAnnouncementsPage';
 
+import { GeneralManagerDashboard } from '@/app/components/gm/GeneralManagerDashboard';
+import { AreaReportsPage } from '@/app/components/gm/AreaReportsPage';
+import { KeyIndicatorsPage } from '@/app/components/gm/KeyIndicatorsPage';
+import { ManagerMeetingsPage } from '@/app/components/gm/ManagerMeetingsPage';
+
 interface DashboardProps {
   username: string;
   onLogout: () => void;
@@ -48,32 +54,48 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
   const permissions = getPermissions(username);
 
   const menuItems = [
-    { id: 'home', label: userData?.role === 'strategic' ? 'Dashboard' : 'Inicio', icon: <Home size={20} /> },
+    { id: 'home', label: (userData?.role === 'strategic' || userData?.role === 'tactical') ? 'Dashboard' : 'Inicio', icon: <Home size={20} /> },
     { id: 'sales', label: 'Ventas', icon: <ShoppingCart size={20} /> },
     { id: 'inventory', label: 'Inventario', icon: <Package size={20} /> },
     { id: 'purchases', label: 'Compras', icon: <Truck size={20} /> },
     { id: 'finance', label: 'Finanzas', icon: <BarChart3 size={20} /> },
     { id: 'hr', label: 'RRHH', icon: <Users size={20} /> },
     { id: 'communication', label: 'Comunicación', icon: <MessageSquare size={20} /> },
+
+    // Director Specific
     { id: 'executive_reports', label: 'Reportes Ejecutivos', icon: <FileText size={20} /> },
     { id: 'budget_control', label: 'Control Presupuestario', icon: <DollarSign size={20} /> },
     { id: 'corporate_announcements', label: 'Anuncios Corporativos', icon: <Megaphone size={20} /> },
+
+    // GM Specific
+    { id: 'area_reports', label: 'Reportes por Área', icon: <FileText size={20} /> },
+    { id: 'key_indicators', label: 'Indicadores Clave', icon: <BarChart3 size={20} /> },
+    { id: 'meetings', label: 'Reuniones', icon: <Calendar size={20} /> },
+
     { id: 'reports', label: 'Reportes', icon: <BarChart3 size={20} /> },
     { id: 'settings', label: userData?.role === 'strategic' ? 'Configuración' : 'Mi Perfil', icon: <User size={20} /> },
   ].filter(item => permissions.includes(item.id));
 
   const getPageTitle = () => {
     switch (activeMenu) {
-      case 'home': return userData?.role === 'strategic' ? 'Dashboard Estratégico' : 'Panel de Control Principal';
+      case 'home': return userData?.email === 'gerentegeneral@nexus.com' ? 'Dashboard Gerencial' : userData?.role === 'strategic' ? 'Dashboard Estratégico' : 'Panel de Control Principal';
       case 'sales': return 'Ventas y CRM';
       case 'inventory': return 'Inventario';
       case 'purchases': return 'Compras y Proveedores';
       case 'finance': return 'Finanzas y Facturación';
       case 'hr': return 'Recursos Humanos';
       case 'communication': return 'Comunicación y Colaboración';
+
+      // Director
       case 'executive_reports': return 'Reportes Estratégicos Ejecutivos';
       case 'budget_control': return 'Monitoreo Presupuestario';
       case 'corporate_announcements': return 'Anuncios de Dirección';
+
+      // GM
+      case 'area_reports': return 'Desempeño por Áreas';
+      case 'key_indicators': return 'Indicadores de Gestión (KPI)';
+      case 'meetings': return 'Agenda de Reuniones Gerenciales';
+
       case 'reports': return 'Reportes y Analítica';
       case 'settings': return 'Mi Perfil y Configuración';
       default: return 'NEXUS';
@@ -81,37 +103,48 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
   };
 
   const renderContent = () => {
-    // Si es estratégico y está en home, mostrar el Dashboard Estratégico
-    if (userData?.role === 'strategic' && activeMenu === 'home') {
-      return <StrategicDashboard />;
-    }
-
-    switch (activeMenu) {
-      case 'home':
-        return (
-          <div className="space-y-8 animate-in fade-in duration-500">
-            <DashboardWidgets />
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2">
-                <SalesChart />
-              </div>
-              <div className="lg:col-span-1">
-                <AnnouncementsSection />
-              </div>
+    // Si es estratégico y está en home, mostrar el Dashboard Estratégico correspondiente
+    if (activeMenu === 'home') {
+      if (userData?.email === 'director@nexus.com') return <StrategicDashboard />;
+      if (userData?.email === 'gerentegeneral@nexus.com') return <GeneralManagerDashboard />;
+      return (
+        <div className="space-y-8 animate-in fade-in duration-500">
+          <DashboardWidgets />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <SalesChart />
+            </div>
+            <div className="lg:col-span-1">
+              <AnnouncementsSection />
             </div>
           </div>
-        );
-      case 'sales': return <SalesPage />;
-      case 'inventory': return <InventoryPage />;
+        </div>
+      );
+    }
+
+    // Modo solo lectura para el GM en módulos operativos
+    const isReadOnly = userData?.email === 'gerentegeneral@nexus.com';
+
+    switch (activeMenu) {
+      case 'sales': return <SalesPage />; // Futuro: <SalesPage readOnly={isReadOnly} />
+      case 'inventory': return <InventoryPage />; // Futuro: <InventoryPage readOnly={isReadOnly} />
       case 'purchases': return <PurchasesPage />;
       case 'finance': return <FinancePage />;
       case 'hr': return <HRPage />;
       case 'communication': return <CommunicationPage />;
       case 'reports': return <ReportsPage />;
       case 'settings': return <ProfilePage />;
+
+      // Director
       case 'executive_reports': return <ExecutiveReportsPage />;
       case 'budget_control': return <BudgetControlPage />;
       case 'corporate_announcements': return <CorporateAnnouncementsPage />;
+
+      // GM
+      case 'area_reports': return <AreaReportsPage />;
+      case 'key_indicators': return <KeyIndicatorsPage />;
+      case 'meetings': return <ManagerMeetingsPage />;
+
       default: return <div className="p-8 text-center text-gray-500 italic">Módulo restringido.</div>;
     }
   };
