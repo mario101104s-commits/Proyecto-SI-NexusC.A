@@ -34,16 +34,16 @@ export function GeneralManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
                         {today.charAt(0).toUpperCase() + today.slice(1)}
                     </p>
                 </div>
-                <div className="flex bg-white p-2 rounded-[2rem] shadow-sm border border-gray-100">
+                <div className="flex flex-col sm:flex-row bg-white p-2 rounded-3xl sm:rounded-[2rem] shadow-sm border border-gray-100 gap-2 sm:gap-0">
                     <button
                         onClick={() => setViewMode('live')}
-                        className={`px-8 py-3 rounded-2xl font-black text-sm tracking-wider uppercase transition-all ${viewMode === 'live' ? 'bg-slate-900 text-white shadow-xl shadow-gray-200 hover:-translate-y-1' : 'text-gray-400 hover:text-gray-900'}`}
+                        className={`w-full sm:w-auto px-6 lg:px-8 py-3 rounded-2xl font-black text-xs lg:text-sm tracking-wider uppercase transition-all ${viewMode === 'live' ? 'bg-slate-900 text-white shadow-xl shadow-gray-200 sm:hover:-translate-y-1' : 'text-gray-400 hover:text-gray-900'}`}
                     >
                         En Tiempo Real
                     </button>
                     <button
                         onClick={() => setViewMode('history')}
-                        className={`px-8 py-3 rounded-2xl font-black text-sm tracking-wider uppercase transition-all ${viewMode === 'history' ? 'bg-slate-900 text-white shadow-xl shadow-gray-200 hover:-translate-y-1' : 'text-gray-400 hover:text-gray-900'}`}
+                        className={`w-full sm:w-auto px-6 lg:px-8 py-3 rounded-2xl font-black text-xs lg:text-sm tracking-wider uppercase transition-all ${viewMode === 'history' ? 'bg-slate-900 text-white shadow-xl shadow-gray-200 sm:hover:-translate-y-1' : 'text-gray-400 hover:text-gray-900'}`}
                     >
                         Histórico
                     </button>
@@ -87,7 +87,7 @@ export function GeneralManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Department Health Chart */}
                 <div
-                    className="lg:col-span-2 bg-white p-12 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 cursor-pointer group hover:shadow-2xl transition-all"
+                    className="lg:col-span-2 bg-white p-6 lg:p-12 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 cursor-pointer group hover:shadow-2xl transition-all"
                     onClick={() => onNavigate?.('area_reports')}
                 >
                     <div className="flex items-center justify-between mb-10">
@@ -128,7 +128,7 @@ export function GeneralManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
                 </div>
 
                 {/* Command Alert Center */}
-                <div id="alert-center" className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-gray-200 text-white flex flex-col">
+                <div id="alert-center" className="bg-slate-900 p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-2xl shadow-gray-200 text-white flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-xl font-black flex items-center gap-3">
                             <span className="w-2 h-8 bg-rose-500 rounded-full" /> Alert Center
@@ -188,7 +188,7 @@ function ManagerWidget({ title, value, trend, icon, color, bg, onClick }: any) {
     return (
         <div
             onClick={onClick}
-            className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:shadow-2xl transition-all duration-500 cursor-pointer"
+            className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:shadow-2xl transition-all duration-500 cursor-pointer"
         >
             <div className={`p-5 rounded-[1.75rem] ${bg} text-white shadow-lg shadow-${color}-100 group-hover:scale-110 transition-transform duration-500`}>
                 {icon}

@@ -24,16 +24,16 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
                         {today.charAt(0).toUpperCase() + today.slice(1)}
                     </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                     <button
                         onClick={() => onNavigate?.('tasks')}
-                        className="px-6 py-4 bg-indigo-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center gap-3 active:scale-95"
+                        className="w-full sm:w-auto px-6 py-4 bg-indigo-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all flex justify-center items-center gap-3 active:scale-95"
                     >
                         <Plus size={20} /> Nueva Tarea
                     </button>
-                    <button className="w-12 h-12 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-gray-400 hover:text-indigo-600 transition-all relative">
+                    <button className="w-full sm:w-12 h-12 bg-white border border-gray-100 rounded-[1.25rem] flex items-center justify-center text-gray-400 hover:text-indigo-600 transition-all relative">
                         <Bell size={20} />
-                        <div className="absolute top-3 right-3 w-2 h-2 bg-rose-500 rounded-full border-2 border-white" />
+                        <div className="absolute top-3 right-3 sm:right-3 w-2 h-2 bg-rose-500 rounded-full border-2 border-white" />
                     </button>
                 </div>
             </div>
@@ -68,7 +68,7 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Priority Mission Control */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
+                <div className="lg:col-span-2 bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <div>
                             <h3 className="text-xl font-black text-gray-800 tracking-tight">Misión del Día</h3>
@@ -106,7 +106,7 @@ export function AssistantDashboard({ onNavigate }: { onNavigate?: (menu: string)
                 </div>
 
                 {/* Secure Document Hub */}
-                <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-900/10 text-white flex flex-col">
+                <div className="bg-slate-900 p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-2xl shadow-indigo-900/10 text-white flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-lg font-black flex items-center gap-3 tracking-tight">
                             <FileText className="text-indigo-400" size={22} /> Document Hub
@@ -148,7 +148,7 @@ function AdminToolCard({ title, value, desc, icon, color, onClick }: any) {
     return (
         <div
             onClick={onClick}
-            className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:-translate-y-1 transition-all cursor-pointer"
+            className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 flex items-center gap-6 group hover:-translate-y-1 transition-all cursor-pointer"
         >
             <div className={`w-16 h-16 rounded-[1.5rem] ${accents[color]} flex items-center justify-center shadow-inner transition-transform group-hover:scale-110`}>
                 {icon}

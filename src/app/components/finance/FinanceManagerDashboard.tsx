@@ -25,13 +25,13 @@ export function FinanceManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
                         {today.charAt(0).toUpperCase() + today.slice(1)}
                     </p>
                 </div>
-                <div className="flex gap-3">
-                    <button className="px-6 py-3 bg-white border border-gray-200 rounded-2xl font-bold text-sm text-gray-700 hover:shadow-lg transition-all flex items-center gap-2 active:scale-95">
+                <div className="flex flex-col sm:flex-row gap-3">
+                    <button className="w-full sm:w-auto px-6 py-3 bg-white border border-gray-200 rounded-2xl font-bold text-sm text-gray-700 hover:shadow-lg transition-all flex justify-center items-center gap-2 active:scale-95">
                         <Calculator size={18} /> Simular Flujo
                     </button>
                     <button
                         onClick={() => onNavigate?.('reconciliations')}
-                        className="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold text-sm hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all active:scale-95"
+                        className="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold text-sm hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all active:scale-95 text-center"
                     >
                         Conciliación Bancaria
                     </button>
@@ -71,7 +71,7 @@ export function FinanceManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Income Statement / P&L Section */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col relative overflow-hidden">
+                <div className="lg:col-span-2 bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/30 rounded-full -mr-32 -mt-32 blur-3xl" />
 
                     <div className="relative">
@@ -106,7 +106,7 @@ export function FinanceManagerDashboard({ onNavigate }: { onNavigate?: (menu: st
                 </div>
 
                 {/* Authorization & Approval Queue */}
-                <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-900/20 text-white flex flex-col">
+                <div className="bg-slate-900 p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-2xl shadow-indigo-900/20 text-white flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-lg font-black flex items-center gap-3">
                             <ShieldCheck className="text-indigo-400" size={22} /> Autorizaciones
@@ -151,7 +151,7 @@ function FinMetricCard({ title, value, sub, icon, color, trend, onClick }: any) 
     return (
         <button
             onClick={onClick}
-            className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500 text-left w-full"
+            className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500 text-left w-full"
         >
             <div className={`w-14 h-14 rounded-2xl ${accents[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:scale-110 duration-500`}>{icon}</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{title}</p>

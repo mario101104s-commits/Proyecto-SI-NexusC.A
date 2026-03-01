@@ -14,9 +14,9 @@ export function SellerDetailModal({ isOpen, onClose, data }: SellerDetailModalPr
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300">
             <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onClick={onClose} />
 
-            <div className="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="relative bg-white w-full max-w-2xl rounded-3xl md:rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
                 {/* Header Section */}
-                <div className={`p-8 text-white ${data.type === 'order' ? 'bg-indigo-600' : data.type === 'client' ? 'bg-emerald-600' : 'bg-amber-500'}`}>
+                <div className={`p-6 md:p-8 text-white shrink-0 ${data.type === 'order' ? 'bg-indigo-600' : data.type === 'client' ? 'bg-emerald-600' : 'bg-amber-500'}`}>
                     <div className="flex justify-between items-start mb-6">
                         <div className="p-3 bg-white/10 rounded-2xl">
                             {data.type === 'order' ? <ShoppingBag size={24} /> : data.type === 'client' ? <User size={24} /> : <DollarSign size={24} />}
@@ -35,10 +35,10 @@ export function SellerDetailModal({ isOpen, onClose, data }: SellerDetailModalPr
                 </div>
 
                 {/* Content Section */}
-                <div className="p-10 space-y-8">
+                <div className="p-6 md:p-10 space-y-6 md:space-y-8 overflow-y-auto custom-scrollbar">
                     {data.type === 'order' ? (
                         <>
-                            <div className="flex items-center justify-between p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 md:p-8 bg-gray-50 rounded-3xl md:rounded-[2.5rem] border border-gray-100 gap-4">
                                 <div>
                                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total del Pedido</p>
                                     <p className="text-3xl font-black text-gray-900">{data.amount || '$0.00'}</p>
@@ -60,7 +60,7 @@ export function SellerDetailModal({ isOpen, onClose, data }: SellerDetailModalPr
                         </>
                     ) : (
                         <>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                 <div className="p-6 bg-emerald-50 rounded-[2rem] border border-emerald-100 text-center">
                                     <p className="text-[10px] font-black text-emerald-600 uppercase mb-1">Compras Mes</p>
                                     <p className="text-2xl font-black text-emerald-700">$14,200</p>

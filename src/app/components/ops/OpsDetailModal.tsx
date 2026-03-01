@@ -1,4 +1,4 @@
-import { X, Activity, Truck, Package, AlertTriangle, ArrowRight, Zap, Target } from 'lucide-react';
+import { X, Activity, Truck, Package, ArrowRight, Zap, Target } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 
 interface OpsDetailModalProps {
@@ -31,10 +31,10 @@ export function OpsDetailModal({ isOpen, onClose, data }: OpsDetailModalProps) {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300" onClick={onClose} />
 
-            <div className="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-500 border border-slate-100">
-                <div className="p-12">
-                    <div className="flex justify-between items-start mb-10">
-                        <div className="flex items-center gap-6">
+            <div className="relative bg-white w-full max-w-2xl rounded-3xl md:rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-500 border border-slate-100 flex flex-col max-h-[90vh]">
+                <div className="p-6 md:p-12 overflow-y-auto custom-scrollbar">
+                    <div className="flex justify-between items-start mb-8 md:mb-10">
+                        <div className="flex items-center gap-4 md:gap-6">
                             <div className={`p-5 rounded-3xl ${typeColors[data.type].split(' ')[0]} ${typeColors[data.type].split(' ')[1]}`}>
                                 {typeIcons[data.type]}
                             </div>
@@ -61,7 +61,7 @@ export function OpsDetailModal({ isOpen, onClose, data }: OpsDetailModalProps) {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                             <div className="p-6 bg-white border border-slate-100 rounded-2xl">
                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                                     <Zap size={12} className="text-amber-500" /> Latencia Estimada

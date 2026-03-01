@@ -18,8 +18,8 @@ export function NewEmployeeModal({ isOpen, onClose }: NewEmployeeModalProps) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+            <div className="bg-white rounded-2xl md:rounded-3xl shadow-xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh]">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-100">
                     <h2 className="text-xl font-semibold text-gray-800">Nuevo Empleado</h2>
@@ -29,7 +29,7 @@ export function NewEmployeeModal({ isOpen, onClose }: NewEmployeeModalProps) {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="p-6 space-y-6">
+                <form onSubmit={handleSubmit} className="p-6 space-y-6 overflow-y-auto custom-scrollbar">
                     {/* Avatar Upload Placeholder */}
                     <div className="flex flex-col items-center justify-center mb-6">
                         <div className="w-24 h-24 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:bg-gray-50 hover:border-blue-400 hover:text-blue-500 transition-colors cursor-pointer">
@@ -39,7 +39,7 @@ export function NewEmployeeModal({ isOpen, onClose }: NewEmployeeModalProps) {
                     </div>
 
                     <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-700">Nombre Completo</label>
                                 <div className="relative">
@@ -66,7 +66,7 @@ export function NewEmployeeModal({ isOpen, onClose }: NewEmployeeModalProps) {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-700">Email Corporativo</label>
                                 <Input type="email" className="h-10" placeholder="usuario@nexus.com" />

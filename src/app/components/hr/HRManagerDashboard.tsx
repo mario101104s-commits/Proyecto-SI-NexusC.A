@@ -20,16 +20,16 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                         {today.charAt(0).toUpperCase() + today.slice(1)}
                     </p>
                 </div>
-                <div className="flex bg-white p-2 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="flex flex-col sm:flex-row bg-white p-2 rounded-3xl sm:rounded-2xl border border-gray-100 shadow-sm gap-2 sm:gap-0">
                     <button
                         onClick={() => onNavigate?.('employees')}
-                        className="px-6 py-2.5 bg-rose-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-rose-100 transition-all"
+                        className="w-full sm:w-auto px-6 py-2.5 bg-rose-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-rose-100 transition-all text-center"
                     >
                         Plantilla
                     </button>
                     <button
                         onClick={() => onNavigate?.('employees')}
-                        className="px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600"
+                        className="w-full sm:w-auto px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600 sm:hover:bg-gray-50 rounded-xl transition-all text-center"
                     >
                         Reclasificación
                     </button>
@@ -74,7 +74,7 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Organizational Distribution */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
+                <div className="lg:col-span-2 bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
                     <div className="flex items-center justify-between mb-10">
                         <div>
                             <h3 className="text-xl font-black text-gray-800 tracking-tight">Estructura por Áreas</h3>
@@ -95,7 +95,7 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
 
                 {/* Talent Academy & Hiring */}
                 <div className="space-y-8">
-                    <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-rose-900/10 text-white">
+                    <div className="bg-slate-900 p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-2xl shadow-rose-900/10 text-white">
                         <h3 className="text-lg font-black mb-8 flex items-center gap-3">
                             <GraduationCap className="text-rose-400" size={22} /> Nexus Academy
                         </h3>
@@ -127,7 +127,7 @@ export function HRManagerDashboard({ onNavigate }: { onNavigate?: (menu: string)
                         </button>
                     </div>
 
-                    <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50">
+                    <div className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50">
                         <h4 className="text-sm font-black text-gray-800 mb-6 flex items-center gap-2">
                             Pipeline Selección <Search size={14} className="text-gray-400" />
                         </h4>
@@ -175,7 +175,7 @@ function PremiumHRCard({ title, value, desc, icon, color, onClick }: any) {
     return (
         <div
             onClick={onClick}
-            className={`bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group transition-all duration-500 ${onClick ? 'cursor-pointer hover:-translate-y-2' : ''}`}
+            className={`bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group transition-all duration-500 ${onClick ? 'cursor-pointer hover:-translate-y-2' : ''}`}
         >
             <div className={`w-14 h-14 rounded-2xl ${accents[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:scale-110 duration-500`}>{icon}</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{title}</p>

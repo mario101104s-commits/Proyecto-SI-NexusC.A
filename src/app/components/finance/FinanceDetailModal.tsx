@@ -14,9 +14,9 @@ export function FinanceDetailModal({ isOpen, onClose, data }: FinanceDetailModal
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300">
             <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onClick={onClose} />
 
-            <div className="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="relative bg-white w-full max-w-2xl rounded-3xl md:rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
                 {/* Header Section */}
-                <div className="bg-indigo-600 p-8 text-white">
+                <div className="bg-indigo-600 p-6 md:p-8 text-white shrink-0">
                     <div className="flex justify-between items-start mb-6">
                         <div className="p-3 bg-white/10 rounded-2xl">
                             {data.type === 'auth' ? <ShieldCheck size={24} /> : <FileText size={24} />}
@@ -35,10 +35,10 @@ export function FinanceDetailModal({ isOpen, onClose, data }: FinanceDetailModal
                 </div>
 
                 {/* Content Section */}
-                <div className="p-10 space-y-8">
+                <div className="p-6 md:p-10 space-y-6 md:space-y-8 overflow-y-auto custom-scrollbar">
                     {data.type === 'auth' ? (
                         <>
-                            <div className="flex items-center justify-between p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 md:p-8 bg-gray-50 rounded-3xl md:rounded-[2.5rem] border border-gray-100 gap-4">
                                 <div>
                                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Concepto de Pago</p>
                                     <p className="text-2xl font-black text-gray-900">{data.auth_type || 'Gasto Operativo'}</p>
@@ -62,7 +62,7 @@ export function FinanceDetailModal({ isOpen, onClose, data }: FinanceDetailModal
                         </>
                     ) : (
                         <>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                 <div className="p-6 bg-emerald-50 rounded-[2rem] border border-emerald-100">
                                     <div className="flex items-center gap-2 mb-2">
                                         <ArrowUpCircle size={14} className="text-emerald-500" />

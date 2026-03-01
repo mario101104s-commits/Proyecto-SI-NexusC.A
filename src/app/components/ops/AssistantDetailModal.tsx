@@ -24,7 +24,7 @@ export function AssistantDetailModal({ isOpen, onClose, data }: AssistantDetailM
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                             <InfoCard label="Prioridad" value={data.priority || "Media"} icon={<AlertCircle size={16} />} />
                             <InfoCard label="Vencimiento" value={data.time || "17:00 PM"} icon={<Clock size={16} />} />
                         </div>
@@ -83,9 +83,9 @@ export function AssistantDetailModal({ isOpen, onClose, data }: AssistantDetailM
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-end bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-500">
-            <div className="h-[95vh] w-full max-w-xl bg-white m-4 rounded-[3.5rem] shadow-2xl flex flex-col animate-in slide-in-from-right-8 duration-500 border border-white/50">
-                <div className="p-8 pb-4 flex justify-between items-center shrink-0">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-end bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-500">
+            <div className="h-[90vh] md:h-[95vh] w-full max-w-xl bg-white m-0 sm:m-4 rounded-t-[3rem] sm:rounded-[3.5rem] shadow-2xl flex flex-col animate-in slide-in-from-bottom-8 sm:slide-in-from-right-8 duration-500 border border-white/50">
+                <div className="p-6 sm:p-8 pb-4 flex justify-between items-center shrink-0">
                     <div className="flex items-center gap-2 text-indigo-600">
                         <div className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
                         <span className="text-[10px] font-black uppercase tracking-widest">Panel de Información</span>
@@ -95,11 +95,11 @@ export function AssistantDetailModal({ isOpen, onClose, data }: AssistantDetailM
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto px-10 py-6 custom-scrollbar">
+                <div className="flex-1 overflow-y-auto px-6 sm:px-10 py-6 custom-scrollbar">
                     {renderContent()}
                 </div>
 
-                <div className="p-8 border-t border-gray-50 bg-slate-50/50 flex gap-4 shrink-0 rounded-b-[3.5rem]">
+                <div className="p-6 sm:p-8 border-t border-gray-50 bg-slate-50/50 flex flex-col sm:flex-row gap-4 shrink-0 sm:rounded-b-[3.5rem]">
                     <button onClick={onClose} className="flex-1 py-4 bg-white border border-gray-200 text-gray-400 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-50 transition-all">
                         Cerrar Vista
                     </button>

@@ -25,9 +25,9 @@ export function SalesManagerDashboard({ onNavigate }: { onNavigate?: (menu: stri
                         {today.charAt(0).toUpperCase() + today.slice(1)}
                     </p>
                 </div>
-                <div className="flex bg-white p-2 rounded-2xl border border-gray-100 shadow-sm">
-                    <button className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-blue-100 transition-all">Este Mes</button>
-                    <button className="px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600">Trimestral</button>
+                <div className="flex flex-col sm:flex-row bg-white p-2 rounded-3xl sm:rounded-2xl border border-gray-100 shadow-sm gap-2 sm:gap-0">
+                    <button className="w-full sm:w-auto px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-blue-100 transition-all text-center">Este Mes</button>
+                    <button className="w-full sm:w-auto px-6 py-2.5 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600 sm:hover:bg-gray-50 rounded-xl transition-all text-center">Trimestral</button>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@ export function SalesManagerDashboard({ onNavigate }: { onNavigate?: (menu: stri
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Sales Team Leaderboard */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
+                <div className="lg:col-span-2 bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
                     <div className="flex items-center justify-between mb-10">
                         <div>
                             <h3 className="text-xl font-black text-gray-800 tracking-tight">Rendimiento del Equipo</h3>
@@ -105,7 +105,7 @@ export function SalesManagerDashboard({ onNavigate }: { onNavigate?: (menu: stri
 
                 {/* High Value Opportunities */}
                 <div className="space-y-8">
-                    <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-blue-900/10 text-white">
+                    <div className="bg-slate-900 p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-2xl shadow-blue-900/10 text-white">
                         <h3 className="text-lg font-black mb-8 flex items-center justify-between">
                             <span className="flex items-center gap-3">
                                 <Briefcase className="text-blue-500" size={22} /> Oportunidades Clave
@@ -128,7 +128,7 @@ export function SalesManagerDashboard({ onNavigate }: { onNavigate?: (menu: stri
                         </div>
                     </div>
 
-                    <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex-1">
+                    <div className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex-1">
                         <div className="flex justify-between items-center mb-6">
                             <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Estado del Pipeline</h4>
                             <ChevronRight size={14} className="text-gray-300" />
@@ -157,7 +157,7 @@ function SalesMetricCard({ title, value, trend, icon, color, onClick }: any) {
     return (
         <button
             onClick={onClick}
-            className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500 text-left w-full"
+            className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500 text-left w-full"
         >
             <div className={`w-14 h-14 rounded-2xl ${colors[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:scale-110`}>{icon}</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{title}</p>

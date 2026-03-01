@@ -38,11 +38,11 @@ export function OperationsDashboard({ onNavigate }: { onNavigate?: (menu: string
                         {today.charAt(0).toUpperCase() + today.slice(1)}
                     </p>
                 </div>
-                <div className="flex bg-white p-2 rounded-2xl border border-gray-100 shadow-sm">
-                    <button className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-blue-100 hover:-translate-y-1 transition-all">Regional</button>
+                <div className="flex flex-col sm:flex-row bg-white p-2 rounded-3xl sm:rounded-2xl border border-gray-100 shadow-sm gap-2 sm:gap-0">
+                    <button className="w-full sm:w-auto px-6 lg:px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-wider uppercase shadow-lg shadow-blue-100 sm:hover:-translate-y-1 transition-all text-center">Regional</button>
                     <button
                         onClick={() => alert('Visualización Nacional en proceso de carga...')}
-                        className="px-8 py-3 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600 transition-all"
+                        className="w-full sm:w-auto px-6 lg:px-8 py-3 text-gray-400 font-bold text-xs tracking-wider uppercase hover:text-gray-600 sm:hover:bg-gray-50 rounded-xl transition-all text-center"
                     >
                         Nacional
                     </button>
@@ -91,8 +91,8 @@ export function OperationsDashboard({ onNavigate }: { onNavigate?: (menu: string
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Warehouse Status Table */}
-                <div className="lg:col-span-2 bg-white rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 overflow-hidden">
-                    <div className="p-8 border-b border-gray-50 flex items-center justify-between">
+                <div className="lg:col-span-2 bg-white rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 overflow-hidden">
+                    <div className="p-6 lg:p-8 border-b border-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 className="text-xl font-black text-gray-800 tracking-tight">Estado de Almacenes</h3>
                             <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1">Monitoreo de Capacidad en Tiempo Real</p>
@@ -166,7 +166,7 @@ export function OperationsDashboard({ onNavigate }: { onNavigate?: (menu: string
                 {/* Logistics & Inventory Chart side-section */}
                 <div className="space-y-10">
                     <div
-                        className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 h-fit cursor-pointer group hover:shadow-2xl transition-all"
+                        className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 h-fit cursor-pointer group hover:shadow-2xl transition-all"
                         onClick={() => onNavigate?.('ops_reports')}
                     >
                         <div className="flex items-center justify-between mb-8">
@@ -193,7 +193,7 @@ export function OperationsDashboard({ onNavigate }: { onNavigate?: (menu: string
                         </div>
                     </div>
 
-                    <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-blue-900/20 text-white relative overflow-hidden">
+                    <div className="bg-slate-900 p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-2xl shadow-blue-900/20 text-white relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -mr-16 -mt-16 blur-2xl" />
                         <h3 className="text-lg font-black mb-6 flex items-center gap-3">
                             <span className="w-2 h-6 bg-blue-500 rounded-full" /> Rutas Críticas
@@ -245,7 +245,7 @@ function OpsCard({ title, value, unit, trend, icon, color, onClick }: any) {
     return (
         <div
             onClick={onClick}
-            className="bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+            className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group hover:-translate-y-2 transition-all duration-500 cursor-pointer"
         >
             <div className={`w-14 h-14 rounded-2xl ${colors[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:scale-110 duration-500`}>
                 {icon}

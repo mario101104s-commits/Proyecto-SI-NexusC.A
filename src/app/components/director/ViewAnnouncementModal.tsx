@@ -12,9 +12,9 @@ export function ViewAnnouncementModal({ isOpen, onClose, announcement }: ViewAnn
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-white rounded-[3rem] shadow-2xl w-full max-w-4xl mx-4 overflow-hidden border border-slate-100 animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+            <div className="bg-white rounded-3xl md:rounded-[3rem] shadow-2xl w-full max-w-4xl mx-4 overflow-hidden border border-slate-100 animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
                 {/* Header with gradient and meta */}
-                <div className="bg-gradient-to-r from-slate-900 to-blue-900 p-10 text-white relative shrink-0">
+                <div className="bg-gradient-to-r from-slate-900 to-blue-900 p-6 md:p-10 text-white relative shrink-0">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -mr-32 -mt-32 blur-3xl" />
                     <div className="relative z-10">
                         <div className="flex justify-between items-start mb-6">
@@ -41,7 +41,7 @@ export function ViewAnnouncementModal({ isOpen, onClose, announcement }: ViewAnn
                 </div>
 
                 {/* Content Area */}
-                <div className="flex-1 overflow-y-auto p-12 custom-scrollbar">
+                <div className="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar">
                     <div className="max-w-3xl mx-auto space-y-8">
                         <div className="prose prose-slate lg:prose-xl">
                             <p className="text-xl font-medium text-slate-800 leading-relaxed">
@@ -81,19 +81,19 @@ export function ViewAnnouncementModal({ isOpen, onClose, announcement }: ViewAnn
                 </div>
 
                 {/* Footer Actions */}
-                <div className="p-10 border-t border-slate-50 bg-slate-50/50 shrink-0">
-                    <div className="max-w-3xl mx-auto flex items-center justify-between">
-                        <div className="flex gap-4">
-                            <Button variant="outline" className="h-14 px-8 rounded-2xl border-2 border-slate-200 font-black text-slate-700 flex items-center gap-3">
+                <div className="p-6 md:p-10 border-t border-slate-50 bg-slate-50/50 shrink-0">
+                    <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                            <Button variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-2xl border-2 border-slate-200 font-black text-slate-700 flex items-center justify-center gap-3">
                                 <Download size={20} />
                                 Descargar PDF
                             </Button>
-                            <Button variant="outline" className="h-14 px-8 rounded-2xl border-2 border-slate-200 font-black text-slate-700 flex items-center gap-3">
+                            <Button variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-2xl border-2 border-slate-200 font-black text-slate-700 flex items-center justify-center gap-3">
                                 <Share2 size={20} />
                                 Compartir
                             </Button>
                         </div>
-                        <Button onClick={onClose} className="bg-slate-900 hover:bg-black text-white px-10 h-14 rounded-2xl shadow-xl shadow-slate-200 font-black">
+                        <Button onClick={onClose} className="w-full sm:w-auto bg-slate-900 hover:bg-black text-white px-10 h-14 rounded-2xl shadow-xl shadow-slate-200 font-black">
                             Entendido
                         </Button>
                     </div>

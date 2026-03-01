@@ -24,7 +24,7 @@ export function WorkerDetailModal({ isOpen, onClose, data }: WorkerDetailModalPr
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100">
                                 <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><Clock size={12} /> Prioridad</p>
                                 <p className="text-base font-black text-slate-900">{data.priority || "Normal"}</p>
@@ -86,9 +86,9 @@ export function WorkerDetailModal({ isOpen, onClose, data }: WorkerDetailModalPr
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-end bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-500 p-4">
-            <div className="h-[90vh] w-full max-w-lg bg-white rounded-[3rem] shadow-2xl flex flex-col animate-in slide-in-from-right-8 duration-500 relative overflow-hidden">
-                <div className="p-8 pb-4 flex justify-between items-center shrink-0">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-end bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-500 sm:p-4">
+            <div className="h-[90vh] w-full max-w-lg bg-white rounded-t-[3rem] sm:rounded-[3rem] shadow-2xl flex flex-col animate-in slide-in-from-bottom-8 sm:slide-in-from-right-8 duration-500 relative overflow-hidden">
+                <div className="p-6 sm:p-8 pb-4 flex justify-between items-center shrink-0">
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-blue-500" /> Detalle del Elemento
                     </span>
@@ -97,7 +97,7 @@ export function WorkerDetailModal({ isOpen, onClose, data }: WorkerDetailModalPr
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto px-10 py-6 custom-scrollbar">
+                <div className="flex-1 overflow-y-auto px-6 sm:px-10 py-6 custom-scrollbar">
                     {renderContent()}
                 </div>
             </div>

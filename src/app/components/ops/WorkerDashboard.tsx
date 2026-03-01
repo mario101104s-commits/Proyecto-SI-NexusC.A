@@ -12,7 +12,7 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
             {/* Shift Command Header */}
-            <div className="bg-slate-900 p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+            <div className="bg-slate-900 p-6 lg:p-10 rounded-3xl lg:rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-blue-600/20 transition-all duration-700" />
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -24,16 +24,16 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                         <h2 className="text-4xl font-black mb-2 tracking-tight">¡Hola de nuevo, Mario! 👋</h2>
                         <p className="text-slate-400 font-medium">Tienes <span className="text-white font-bold">04 tareas</span> críticas asignadas para tu turno.</p>
 
-                        <div className="mt-8 flex flex-wrap gap-4">
+                        <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4">
                             <button
                                 onClick={() => alert('Turno Iniciado con Éxito')}
-                                className="px-8 py-4 bg-white text-slate-900 rounded-2xl font-black text-xs tracking-wider uppercase flex items-center gap-3 hover:bg-blue-50 transition-all shadow-xl shadow-white/5 active:scale-95"
+                                className="w-full sm:w-auto px-6 lg:px-8 py-4 bg-white text-slate-900 rounded-2xl font-black text-xs tracking-wider uppercase flex justify-center items-center gap-3 hover:bg-blue-50 transition-all shadow-xl shadow-white/5 active:scale-95"
                             >
                                 <LogIn size={18} /> Iniciar Turno (AM)
                             </button>
                             <button
                                 onClick={() => alert('Sesión de Trabajo Cerrada')}
-                                className="px-8 py-4 bg-slate-800 text-slate-400 border border-slate-700 rounded-2xl font-black text-xs tracking-wider uppercase flex items-center gap-3 hover:text-white hover:bg-slate-700 transition-all active:scale-95"
+                                className="w-full sm:w-auto px-6 lg:px-8 py-4 bg-slate-800 text-slate-400 border border-slate-700 rounded-2xl font-black text-xs tracking-wider uppercase flex justify-center items-center gap-3 hover:text-white hover:bg-slate-700 transition-all active:scale-95"
                             >
                                 <LogOut size={18} /> Finalizar Turno
                             </button>
@@ -58,7 +58,7 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 {/* Active Task Queue */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50">
+                <div className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50">
                     <div className="flex items-center justify-between mb-10">
                         <h3 className="text-xl font-black text-gray-800 tracking-tight flex items-center gap-3">
                             <ClipboardList className="text-blue-600" size={24} /> Mis Tareas
@@ -81,7 +81,7 @@ export function WorkerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                 </div>
 
                 {/* Internal Comms & News */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
+                <div className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-xl font-black text-gray-800 tracking-tight flex items-center gap-3">
                             <Bell className="text-amber-500" size={24} /> Comunicados

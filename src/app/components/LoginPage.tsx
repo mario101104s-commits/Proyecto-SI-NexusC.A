@@ -98,7 +98,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" />
       </div>
 
-      <div className="relative w-full max-w-[85rem] grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch justify-center scale-90 transition-transform duration-500 origin-center">
+      <div className="relative w-full max-w-[85rem] grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch justify-center scale-100 lg:scale-90 transition-transform duration-500 origin-center py-8 lg:py-0">
         {/* Sección SI (Izquierda) */}
         <div className="hidden lg:col-span-3 lg:block">
           <div className="bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl p-6 h-full flex flex-col border border-gray-100 relative overflow-hidden group">
@@ -138,7 +138,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
         {/* Sección Login (Centro) */}
         <div className="w-full lg:col-span-4 flex items-center h-full">
-          <div className="w-full bg-white rounded-[2rem] shadow-xl p-8 md:p-10 border border-gray-100 relative overflow-hidden h-full flex flex-col justify-center">
+          <div className="w-full bg-white rounded-3xl lg:rounded-[2rem] shadow-xl p-6 md:p-10 border border-gray-100 relative overflow-hidden h-full flex flex-col justify-center">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600" />
 
             <div className="flex justify-center mb-6">
@@ -206,8 +206,8 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
         {/* Sección Panel Demo (Derecha) */}
         <div className="w-full lg:col-span-5 flex items-stretch">
-          <div className="w-full bg-white/60 backdrop-blur-md rounded-[2rem] shadow-xl border border-white/50 h-full flex flex-col overflow-hidden max-h-[660px]">
-            <div className="p-7 border-b border-white/50 bg-white/30">
+          <div className="w-full bg-white/60 backdrop-blur-md rounded-3xl lg:rounded-[2rem] shadow-xl border border-white/50 h-full flex flex-col overflow-hidden max-h-[800px] lg:max-h-[660px]">
+            <div className="p-5 lg:p-7 border-b border-white/50 bg-white/30">
               <h2 className="text-lg font-black text-slate-900 flex items-center gap-3 tracking-tight italic uppercase leading-tight">
                 <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse shadow-md shadow-blue-200" />
                 Acceso Directo por Nivel Jerárquico
@@ -217,7 +217,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
               </p>
             </div>
 
-            <div className="flex-1 p-5">
+            <div className="flex-1 p-4 lg:p-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                 {DEMO_USERS.map((user) => (
                   <button
@@ -229,8 +229,8 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                       <div className="flex items-center gap-2">
                         <div className={`w-1.5 h-1.5 rounded-full bg-${user.color}-500 shadow-sm`} />
                         <span className={`text-[7px] font-black px-2 py-1 rounded-lg uppercase tracking-widest ${user.level === 'Estratégico' ? 'bg-indigo-50 text-indigo-600' :
-                            user.level === 'Gerencial' ? 'bg-blue-50 text-blue-600' :
-                              'bg-slate-50 text-slate-600'
+                          user.level === 'Gerencial' ? 'bg-blue-50 text-blue-600' :
+                            'bg-slate-50 text-slate-600'
                           }`}>
                           {user.level}
                         </span>

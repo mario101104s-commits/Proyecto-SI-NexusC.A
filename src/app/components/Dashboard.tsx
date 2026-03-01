@@ -104,6 +104,7 @@ interface DashboardProps {
 export function Dashboard({ username, onLogout }: DashboardProps) {
   const [activeMenu, setActiveMenu] = useState('home');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const userData = getUserData(username);
   const permissions = getPermissions(username);
@@ -289,9 +290,7 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       case 'sales_team':
         return <SalesTeamPage readOnly={isGM} />;
       case 'orders':
-      case 'catalog':
       case 'sales_reports':
-      case 'inventory_query':
         return <SalesPage readOnly={isGM} />; // For now, SalesPage handles main sales context, will specialized if needed
 
       case 'inventory': return <InventoryPage readOnly={isGM} />;
@@ -363,9 +362,22 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50 font-sans">
+    <div className="flex h-screen overflow-hidden bg-slate-50 font-sans relative">
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar Area */}
-      <aside className={`${isSidebarCollapsed ? 'w-20' : 'w-64'} bg-blue-900 transition-all duration-300 flex flex-col h-full z-30 shadow-2xl shrink-0`}>
+      <aside className={`
+        ${isSidebarCollapsed ? 'w-20' : 'w-64'} 
+        bg-blue-900 transition-all duration-300 flex flex-col h-full shadow-2xl shrink-0
+        fixed top-0 bottom-0 left-0 z-50 lg:relative
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
         <div className="h-20 flex items-center px-6 border-b border-blue-800/50 shrink-0 mb-2">
           {!isSidebarCollapsed ? (
             <div className="flex items-center gap-3">
@@ -381,8 +393,17 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
           )}
         </div>
 
-        <div className="px-4 py-2 flex items-center justify-end">
-          <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className="p-2 rounded-xl bg-blue-800/30 text-blue-100 hover:bg-blue-600/50 hover:text-white transition-all">
+        <div className="px-4 py-2 flex items-center justify-between lg:justify-end">
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 rounded-xl bg-white/10 text-white lg:hidden"
+          >
+            <X size={18} />
+          </button>
+          <button
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            className="p-2 rounded-xl bg-blue-800/30 text-blue-100 hover:bg-blue-600/50 hover:text-white transition-all hidden lg:block"
+          >
             {isSidebarCollapsed ? <Menu size={18} /> : <X size={18} />}
           </button>
         </div>
@@ -391,7 +412,10 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
           {menuItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveMenu(item.id)}
+              onClick={() => {
+                setActiveMenu(item.id);
+                setIsMobileMenuOpen(false);
+              }}
               className={`w-full flex items-center p-3 rounded-xl transition-all duration-200 group relative ${activeMenu === item.id
                 ? 'bg-blue-600 text-white shadow-lg'
                 : 'text-blue-100/70 hover:bg-blue-800/50 hover:text-white'
@@ -419,38 +443,49 @@ export function Dashboard({ username, onLogout }: DashboardProps) {
       </aside>
 
       {/* Main Viewport */}
-      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
-        <header className="h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 shrink-0 flex items-center">
-          <div className="w-full px-10 flex items-center justify-between">
-            <div className="flex flex-col">
-              <h2 className="text-2xl font-black text-gray-800 tracking-tight">{getPageTitle()}</h2>
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden w-full">
+        <header className="h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 shrink-0 flex items-center px-6 lg:px-10 justify-between">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-gray-600 hover:bg-blue-50 transition-colors lg:hidden"
+            >
+              <Menu size={20} />
+            </button>
+            <div className="flex flex-col hidden sm:flex">
+              <h2 className="text-xl lg:text-2xl font-black text-gray-800 tracking-tight">{getPageTitle()}</h2>
               <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded-full w-fit mt-1">
                 {userData?.role === 'strategic' ? 'Mando Estratégico' : userData?.role === 'tactical' ? 'Gestión Táctica' : 'Nivel Operativo'}
-                <span className="ml-2 opacity-30 text-[8px]">v1.2.1-executive</span>
+                <span className="ml-2 opacity-30 text-[8px] hidden md:inline">v1.2.1-executive</span>
               </p>
             </div>
 
-            <div className="flex items-center gap-8">
-              <button className="relative p-2.5 text-gray-400 hover:text-blue-800 hover:bg-blue-50 rounded-2xl transition-all">
-                <Bell size={22} />
-                <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full ring-4 ring-white"></span>
-              </button>
-              <div className="h-10 w-px bg-gray-100" />
-              <div className="flex items-center gap-4">
-                <div className="text-right hidden md:block">
-                  <p className="text-sm font-black text-gray-900 leading-none">{userData?.name || username}</p>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">{userData?.email}</p>
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-blue-100 border-2 border-white shadow-xl flex items-center justify-center text-blue-700 font-bold overflow-hidden ring-1 ring-gray-100 bg-gradient-to-br from-blue-100 to-blue-200">
-                  <img src={marioProfile} alt="Profile" className="w-full h-full object-cover" />
-                </div>
+            {/* Mobile simplified title */}
+            <div className="sm:hidden flex flex-col">
+              <h2 className="text-lg font-black text-gray-800 tracking-tight truncate max-w-[150px]">{getPageTitle()}</h2>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 lg:gap-8">
+            <button className="relative p-2.5 text-gray-400 hover:text-blue-800 hover:bg-blue-50 rounded-2xl transition-all hidden sm:block">
+              <Bell size={22} />
+              <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full ring-4 ring-white"></span>
+            </button>
+            <div className="h-10 w-px bg-gray-100" />
+            <div className="flex items-center gap-4">
+              <div className="text-right hidden md:block">
+                <p className="text-sm font-black text-gray-900 leading-none">{userData?.name || username}</p>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">{userData?.email}</p>
+              </div>
+              <div className="w-12 h-12 rounded-2xl bg-blue-100 border-2 border-white shadow-xl flex items-center justify-center text-blue-700 font-bold overflow-hidden ring-1 ring-gray-100 bg-gradient-to-br from-blue-100 to-blue-200">
+                <img src={marioProfile} alt="Profile" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto bg-slate-50/50 py-10">
-          <div className="w-full px-10">
+        <main className="flex-1 overflow-y-auto bg-slate-50/50 py-6 lg:py-10">
+          <div className="w-full px-4 sm:px-6 lg:px-10">
             {renderContent()}
           </div>
         </main>

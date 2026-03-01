@@ -20,16 +20,16 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                         {today.charAt(0).toUpperCase() + today.slice(1)}
                     </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                     <button
                         onClick={() => onNavigate?.('my_orders')}
-                        className="px-6 py-4 bg-emerald-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-emerald-100 hover:bg-emerald-700 transition-all flex items-center gap-3 active:scale-95"
+                        className="w-full sm:w-auto px-6 py-4 bg-emerald-600 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-emerald-100 hover:bg-emerald-700 transition-all flex justify-center items-center gap-3 active:scale-95"
                     >
                         <PlusCircle size={20} /> Nueva Venta
                     </button>
                     <button
                         onClick={() => onNavigate?.('catalog')}
-                        className="px-6 py-4 bg-slate-900 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex items-center gap-3 active:scale-95"
+                        className="w-full sm:w-auto px-6 py-4 bg-slate-900 text-white rounded-[1.25rem] font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex justify-center items-center gap-3 active:scale-95"
                     >
                         <Search size={20} /> Consultar Stock
                     </button>
@@ -82,7 +82,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Personal Sales Agenda */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
+                <div className="lg:col-span-2 bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <div>
                             <h3 className="text-xl font-black text-gray-800 tracking-tight">Mi Agenda de Seguimiento</h3>
@@ -128,7 +128,7 @@ export function SellerDashboard({ onNavigate }: { onNavigate?: (menu: string) =>
                 </div>
 
                 {/* Quick Catalog / High Rotation Stock */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
+                <div className="bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-lg font-black text-gray-800 flex items-center gap-3 tracking-tight">
                             <ShoppingBag className="text-emerald-600" size={24} /> Stock Rápido
@@ -171,7 +171,7 @@ function SellerStatCard({ title, value, unit, sub, icon, color, progress, onClic
     return (
         <div
             onClick={onClick}
-            className={`bg-white p-8 rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group transition-all ${onClick ? 'cursor-pointer hover:-translate-y-1' : ''}`}
+            className={`bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.25rem] shadow-xl shadow-gray-100 border border-gray-50 group transition-all ${onClick ? 'cursor-pointer hover:-translate-y-1' : ''}`}
         >
             <div className={`w-14 h-14 rounded-2xl ${accents[color]} flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:rotate-12`}>
                 {icon}

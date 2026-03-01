@@ -18,8 +18,8 @@ export function NewOrderModal({ isOpen, onClose }: NewOrderModalProps) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+            <div className="bg-white rounded-2xl md:rounded-3xl shadow-xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-100">
                     <h2 className="text-xl font-semibold text-gray-800">Nueva Orden de Compra</h2>
@@ -29,7 +29,7 @@ export function NewOrderModal({ isOpen, onClose }: NewOrderModalProps) {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto custom-scrollbar">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700">Proveedor</label>
                         <div className="relative">

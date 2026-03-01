@@ -4,21 +4,21 @@ export function WarehouseSupervisorDashboard({ onNavigate }: { onNavigate?: (men
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Action-Oriented Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between bg-white px-8 py-10 rounded-[2.5rem] border border-gray-50 shadow-xl shadow-gray-100 gap-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between bg-white px-6 lg:px-8 py-6 lg:py-10 rounded-3xl lg:rounded-[2.5rem] border border-gray-50 shadow-xl shadow-gray-100 gap-6">
                 <div>
                     <h2 className="text-3xl font-black text-gray-900 tracking-tight">Almacén Valencia</h2>
                     <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1">Sede Principal - Control de Inventario</p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                     <button
                         onClick={() => onNavigate?.('reception')}
-                        className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all flex items-center gap-3 active:scale-95"
+                        className="w-full sm:w-auto px-6 lg:px-8 py-4 bg-blue-600 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all flex justify-center items-center gap-3 active:scale-95"
                     >
                         <Upload size={18} /> Registrar Recepción
                     </button>
                     <button
                         onClick={() => onNavigate?.('dispatch')}
-                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex items-center gap-3 active:scale-95"
+                        className="w-full sm:w-auto px-6 lg:px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs tracking-wider uppercase shadow-xl shadow-gray-200 hover:bg-slate-800 transition-all flex justify-center items-center gap-3 active:scale-95"
                     >
                         <Download size={18} /> Registrar Despacho
                     </button>
@@ -61,7 +61,7 @@ export function WarehouseSupervisorDashboard({ onNavigate }: { onNavigate?: (men
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Movement History Log */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] border border-gray-50 shadow-xl shadow-gray-100">
+                <div className="lg:col-span-2 bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] border border-gray-50 shadow-xl shadow-gray-100">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-xl font-black text-gray-800 tracking-tight flex items-center gap-3">
                             <History className="text-blue-600" size={24} /> Log de Movimientos
@@ -83,7 +83,7 @@ export function WarehouseSupervisorDashboard({ onNavigate }: { onNavigate?: (men
                 </div>
 
                 {/* Critical Stock Center */}
-                <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl shadow-blue-900/10 text-white flex flex-col">
+                <div className="bg-slate-900 p-6 lg:p-8 rounded-3xl lg:rounded-[2.5rem] shadow-2xl shadow-blue-900/10 text-white flex flex-col">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-lg font-black flex items-center gap-3">
                             <AlertTriangle className="text-rose-500" size={22} /> Stock Crítico
@@ -124,7 +124,7 @@ function SuperStatCard({ title, value, unit, sub, icon, color, progress, onClick
     return (
         <div
             onClick={onClick}
-            className={`bg-white p-8 rounded-[2.25rem] border ${borders[color]} shadow-lg shadow-gray-50 group hover:-translate-y-2 transition-all duration-500 cursor-pointer`}
+            className={`bg-white p-6 lg:p-8 rounded-3xl lg:rounded-[2.25rem] border ${borders[color]} shadow-lg shadow-gray-50 group hover:-translate-y-2 transition-all duration-500 cursor-pointer`}
         >
             <div className={`w-14 h-14 rounded-2xl ${iconBgs[color]} flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform`}>{icon}</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{title}</p>

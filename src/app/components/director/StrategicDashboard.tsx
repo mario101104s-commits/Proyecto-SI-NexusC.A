@@ -38,16 +38,18 @@ export function StrategicDashboard({ onNavigate }: StrategicDashboardProps) {
                 <div className="flex gap-4">
                     <button
                         onClick={() => setIsExportModalOpen(true)}
-                        className="px-8 py-4 bg-white border-2 border-slate-100 rounded-2xl font-black text-sm text-slate-700 hover:shadow-xl hover:border-slate-200 transition-all flex items-center gap-3 active:scale-95"
+                        className="px-6 lg:px-8 py-4 bg-white border-2 border-slate-100 rounded-2xl font-black text-xs lg:text-sm text-slate-700 hover:shadow-xl hover:border-slate-200 transition-all flex items-center gap-3 active:scale-95"
                     >
                         <FileText size={20} className="text-blue-600" />
-                        Exportar Reporte
+                        <span className="hidden sm:inline">Exportar Reporte</span>
+                        <span className="sm:hidden">Exportar</span>
                     </button>
                     <button
                         onClick={() => setIsNewStrategyOpen(true)}
-                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm hover:bg-black shadow-2xl shadow-slate-200 transition-all active:scale-95 border border-slate-800"
+                        className="px-6 lg:px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs lg:text-sm hover:bg-black shadow-2xl shadow-slate-200 transition-all active:scale-95 border border-slate-800"
                     >
-                        Nueva Estrategia
+                        <span className="hidden sm:inline">Nueva Estrategia</span>
+                        <span className="sm:hidden">Nueva Estrat.</span>
                     </button>
                 </div>
             </div>
@@ -88,9 +90,9 @@ export function StrategicDashboard({ onNavigate }: StrategicDashboardProps) {
                 />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-10">
                 {/* Branch Performance Section */}
-                <div className="lg:col-span-3 bg-white p-12 rounded-[3rem] shadow-xl shadow-gray-100 border border-gray-50 relative overflow-hidden group">
+                <div className="lg:col-span-3 bg-white p-6 lg:p-12 rounded-3xl lg:rounded-[3rem] shadow-xl shadow-gray-100 border border-gray-50 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-80 h-80 bg-blue-50/50 rounded-full -mr-40 -mt-40 blur-3xl transition-all group-hover:bg-blue-100/50" />
 
                     <div className="relative">
@@ -149,8 +151,8 @@ export function StrategicDashboard({ onNavigate }: StrategicDashboardProps) {
                 </div>
 
                 {/* Insights & Actions */}
-                <div className="lg:col-span-1 flex flex-col gap-8">
-                    <div className="bg-slate-900 p-10 rounded-[3rem] shadow-2xl shadow-blue-900/10 text-white relative overflow-hidden flex-1 flex flex-col">
+                <div className="lg:col-span-1 flex flex-col gap-6 lg:gap-8">
+                    <div className="bg-slate-900 p-6 lg:p-10 rounded-3xl lg:rounded-[3rem] shadow-2xl shadow-blue-900/10 text-white relative overflow-hidden flex-1 flex flex-col">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full -mr-16 -mt-16 blur-2xl" />
 
                         <h3 className="text-xl font-black mb-10 flex items-center gap-3">
@@ -185,8 +187,8 @@ export function StrategicDashboard({ onNavigate }: StrategicDashboardProps) {
                         </Button>
                     </div>
 
-                    <div className="bg-white p-10 rounded-[3.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
-                        <h3 className="text-[10px] font-black text-gray-400 mb-8 uppercase tracking-[0.3em] text-center">Acciones Ejecutivas</h3>
+                    <div className="bg-white p-6 lg:p-10 rounded-3xl lg:rounded-[3.5rem] shadow-xl shadow-gray-100 border border-gray-50 flex flex-col">
+                        <h3 className="text-[10px] font-black text-gray-400 mb-6 lg:mb-8 uppercase tracking-[0.3em] text-center">Acciones Ejecutivas</h3>
                         <div className="space-y-4">
                             <StrategicActionItem
                                 icon={<Megaphone className="text-blue-600" size={24} />}

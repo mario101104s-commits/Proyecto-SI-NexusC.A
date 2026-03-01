@@ -18,7 +18,7 @@ export function AdjustBudgetModal({ isOpen, onClose }: AdjustBudgetModalProps) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-2xl mx-4 overflow-hidden border border-slate-100 animate-in zoom-in-95 duration-200">
+            <div className="bg-white rounded-3xl md:rounded-[2.5rem] shadow-2xl w-full max-w-2xl mx-4 overflow-hidden border border-slate-100 animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
                 {/* Header */}
                 <div className="bg-slate-900 p-8 text-white relative">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full -mr-16 -mt-16 blur-2xl" />
@@ -34,7 +34,7 @@ export function AdjustBudgetModal({ isOpen, onClose }: AdjustBudgetModalProps) {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="p-10 space-y-8">
+                <form onSubmit={handleSubmit} className="p-6 md:p-10 space-y-6 md:space-y-8 overflow-y-auto custom-scrollbar">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-3">
                             <label className="text-sm font-black text-gray-700 uppercase tracking-wider ml-1">Unidad de Negocio</label>
@@ -77,10 +77,10 @@ export function AdjustBudgetModal({ isOpen, onClose }: AdjustBudgetModalProps) {
                     </div>
 
                     <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-50">
-                        <Button type="button" variant="ghost" onClick={onClose} className="px-8 h-14 font-black text-gray-400 hover:text-gray-900 rounded-2xl">
+                        <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto px-8 h-14 font-black text-gray-400 hover:text-gray-900 rounded-2xl">
                             Cancelar
                         </Button>
-                        <Button type="submit" className="bg-slate-900 hover:bg-black text-white px-10 h-14 rounded-2xl shadow-xl shadow-slate-200 transition-all hover:-translate-y-1 font-black flex items-center gap-3">
+                        <Button type="submit" className="w-full sm:w-auto bg-slate-900 hover:bg-black text-white px-10 h-14 rounded-2xl shadow-xl shadow-slate-200 transition-all hover:-translate-y-1 font-black flex justify-center items-center gap-3">
                             <Save size={20} />
                             Aplicar Cambios
                             <ArrowRight size={18} />

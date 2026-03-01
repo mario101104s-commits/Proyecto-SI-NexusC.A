@@ -14,9 +14,9 @@ export function HRDetailModal({ isOpen, onClose, data }: HRDetailModalProps) {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300">
             <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onClick={onClose} />
 
-            <div className="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="relative bg-white w-full max-w-2xl rounded-3xl md:rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
                 {/* Header Section */}
-                <div className={`p-8 text-white ${data.type === 'employee' ? 'bg-indigo-600' : data.type === 'job' ? 'bg-emerald-600' : 'bg-amber-500'}`}>
+                <div className={`p-6 md:p-8 text-white shrink-0 ${data.type === 'employee' ? 'bg-indigo-600' : data.type === 'job' ? 'bg-emerald-600' : 'bg-amber-500'}`}>
                     <div className="flex justify-between items-start mb-6">
                         <div className="p-3 bg-white/10 rounded-2xl">
                             {data.type === 'employee' ? <User size={24} /> : data.type === 'job' ? <Briefcase size={24} /> : <GraduationCap size={24} />}
@@ -35,10 +35,10 @@ export function HRDetailModal({ isOpen, onClose, data }: HRDetailModalProps) {
                 </div>
 
                 {/* Content Section */}
-                <div className="p-10 space-y-8">
+                <div className="p-6 md:p-10 space-y-6 md:space-y-8 overflow-y-auto custom-scrollbar">
                     {data.type === 'employee' ? (
                         <>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <InfoTile icon={<Phone size={14} />} label="Teléfono" value="+51 987 654 321" />
                                 <InfoTile icon={<Mail size={14} />} label="Email" value="c.mendoza@nexus.com" />
                                 <InfoTile icon={<MapPin size={14} />} label="Ubicación" value="Sede Central - Lima" />
@@ -86,7 +86,7 @@ export function HRDetailModal({ isOpen, onClose, data }: HRDetailModalProps) {
                     ) : (
                         <>
                             <div className="space-y-6">
-                                <div className="flex items-center justify-between p-8 bg-amber-50 rounded-[2.5rem] border border-amber-100">
+                                <div className="flex flex-col sm:flex-row items-center sm:justify-between p-6 md:p-8 bg-amber-50 rounded-3xl md:rounded-[2.5rem] border border-amber-100 gap-6">
                                     <div>
                                         <p className="text-[10px] font-black text-amber-600 uppercase tracking-widest mb-1">Avance del Curso</p>
                                         <p className="text-3xl font-black text-amber-900">{data.progress || '85%'}</p>
